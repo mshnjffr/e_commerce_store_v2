@@ -1,0 +1,77 @@
+<div class="add-to-cart-component">
+  <!-- Quantity Selector (if enabled) -->
+  <div *ngIf="showQuantitySelector && canAddToCart" class="quantity-selector mb-3">
+    <label class="form-label small text-muted">Quantity</label>
+    <div class="input-group" [class]="'input-group-' + size">
+      <button 
+        class="btn btn-outline-secondary"
+        type="button"
+        (click)="decreaseQuantity()"
+        [disabled]="quantity <= 1 || isLoading">
+        <i class="bi bi-dash"></i>
+      </button>
+      <input 
+        type="number" 
+        class="form-control text-center quantity-input"
+        [value]="quantity"
+        (input)="updateQuantity(+$any($event.target).value)"
+        [min]="1"
+        [max]="product.stock"
+        [disabled]="isLoading">
+      <button 
+        class="btn btn-outline-secondary"
+        type="button"
+        (click)="increaseQuantity()"
+        [disabled]="quantity >= product.stock || isLoading">
+        <i class="bi bi-plus"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Stock Information -->
+  <div *ngIf="showStockInfo" class="stock-info mb-2">
+    <small [class]="'stock-status ' + stockClass">
+      <i class="bi" [class]="stockStatus === 'in-stock' ? 'bi-check-circle' : 
+                             stockStatus === 'low-stock' ? 'bi-exclamation-triangle' : 
+                             'bi-x-circle'"></i>
+      {{ stockText }}
+    </small>
+  </div>
+
+  <!-- Add to Cart Button -->
+  <button 
+    type="button"
+    [class]="buttonClasses"
+    (click)="addToCart()"
+    [disabled]="!canAddToCart || isLoading"
+    [attr.aria-label]="'Add ' + product.name + ' to cart'">
+    
+    <!-- Loading Spinner -->
+    <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+    
+    <!-- Button Icon -->
+    <i *ngIf="!isLoading" class="bi me-2" 
+       [class]="stockStatus === 'out-of-stock' ? 'bi-x-circle' : 
+                isInCart && isAuthenticated ? 'bi-check-circle' : 
+                'bi-cart-plus'"></i>
+    
+    <!-- Button Text -->
+    <span>{{ displayText }}</span>
+  </button>
+
+  <!-- Guest User Notice -->
+  <div *ngIf="!isAuthenticated && canAddToCart" class="guest-notice mt-2">
+    <small class="text-muted">
+      <i class="bi bi-info-circle me-1"></i>
+      Shopping as guest - items will be saved when you log in
+    </small>
+  </div>
+
+  <!-- Already in Cart Info (for authenticated users) -->
+  <div *ngIf="isInCart && isAuthenticated && canAddToCart" class="cart-info mt-2">
+    <small class="text-success">
+      <i class="bi bi-check-circle me-1"></i>
+      Already have {{ cartQuantity }} in cart
+    </small>
+  </div>
+</div>

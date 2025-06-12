@@ -1,0 +1,46 @@
+{
+  "name": "ecommerce-backend",
+  "version": "1.0.0",
+  "description": "E-commerce backend API with TypeScript and Express",
+  "main": "dist/server.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "dev": "nodemon --exec ts-node src/server.ts",
+    "prod": "npm run build && npm start",
+    "clean": "rm -rf dist",
+    "db:test": "ts-node database/scripts/test-connection.ts",
+    "db:seed": "ts-node database/scripts/seed.ts",
+    "db:reset": "ts-node database/scripts/reset-dev-data.ts",
+    "db:reset:quick": "ts-node database/scripts/reset-dev-data.ts quick",
+    "db:backup": "ts-node database/scripts/backup.ts",
+    "db:backup:create": "ts-node database/scripts/backup.ts create",
+    "db:backup:list": "ts-node database/scripts/backup.ts list",
+    "db:backup:restore": "ts-node database/scripts/backup.ts restore",
+    "db:verify": "ts-node database/scripts/verify-setup.ts",
+    "db:report": "ts-node database/scripts/verify-setup.ts report",
+    "seed:products": "ts-node src/scripts/seedData.ts"
+  },
+  "keywords": ["ecommerce", "api", "typescript", "express", "mongodb"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.15.1"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/jsonwebtoken": "^9.0.9",
+    "@types/node": "^24.0.0",
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}

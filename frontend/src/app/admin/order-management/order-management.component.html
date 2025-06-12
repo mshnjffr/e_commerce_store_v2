@@ -1,0 +1,230 @@
+<div class="admin-container">
+  <!-- Header -->
+  <div class="admin-header">
+    <div class="header-content">
+      <h1>Order Management</h1>
+      <p>Manage and track all customer orders</p>
+    </div>
+    
+    <div class="header-actions">
+      <button class="btn btn-outline-primary" (click)="exportOrders()">
+        <i class="fas fa-download"></i> Export Orders
+      </button>
+      <button class="btn btn-primary" (click)="loadOrders()">
+        <i class="fas fa-sync"></i> Refresh
+      </button>
+    </div>
+  </div>
+
+  <!-- Stats Dashboard -->
+  <div class="stats-dashboard">
+    <div class="stat-card">
+      <div class="stat-icon">📊</div>
+      <div class="stat-content">
+        <div class="stat-number">{{ stats.totalOrders }}</div>
+        <div class="stat-label">Total Orders</div>
+      </div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="stat-icon">💰</div>
+      <div class="stat-content">
+        <div class="stat-number">${{ (stats.totalRevenue || 0).toFixed(2) }}</div>
+        <div class="stat-label">Total Revenue</div>
+      </div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="stat-icon">⏳</div>
+      <div class="stat-content">
+        <div class="stat-number">{{ stats.pendingOrders }}</div>
+        <div class="stat-label">Pending Orders</div>
+      </div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="stat-icon">✅</div>
+      <div class="stat-content">
+        <div class="stat-number">{{ stats.completedOrders }}</div>
+        <div class="stat-label">Completed</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="filters-section">
+    <div class="filter-group">
+      <label for="statusFilter">Filter by Status:</label>
+      <select 
+        id="statusFilter" 
+        [(ngModel)]="selectedStatus" 
+        (change)="onStatusChange()"
+        class="filter-select">
+        <option *ngFor="let option of statusOptions" [value]="option.value">
+          {{ option.label }}
+        </option>
+      </select>
+    </div>
+    
+    <div class="results-info" *ngIf="!isLoading">
+      Showing {{ orders.length }} of {{ totalItems }} orders
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div class="loading-container" *ngIf="isLoading">
+    <div class="loading-spinner"></div>
+    <p>Loading orders...</p>
+  </div>
+
+  <!-- Orders Table -->
+  <div class="orders-table-container" *ngIf="!isLoading && orders.length > 0">
+    <div class="table-responsive">
+      <table class="orders-table">
+        <thead>
+          <tr>
+            <th>Order #</th>
+            <th>Customer</th>
+            <th>Date</th>
+            <th>Items</th>
+            <th>Total</th>
+            <th>Status</th>
+            <th>Payment</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let order of orders" class="order-row">
+            <td>
+              <div class="order-number">
+                <strong>{{ order.orderNumber }}</strong>
+                <small class="text-muted d-block">{{ formatDate(order.createdAt) }}</small>
+              </div>
+            </td>
+            
+            <td>
+              <div class="customer-info">
+                <div class="customer-name">{{ getCustomerName(order) }}</div>
+                <small class="customer-email">{{ getCustomerEmail(order) }}</small>
+              </div>
+            </td>
+            
+            <td>
+              <div class="order-date">
+                {{ formatDate(order.createdAt) }}
+              </div>
+            </td>
+            
+            <td>
+              <div class="items-summary">
+                <div class="items-count">{{ order.items.length }} item(s)</div>
+                <div class="items-preview">
+                  <small *ngFor="let item of order.items.slice(0, 2)" class="item-name">
+                    {{ item.productId?.name || item.productName }}<span *ngIf="item.quantity > 1"> ({{ item.quantity }})</span>
+                  </small>
+                  <small *ngIf="order.items.length > 2" class="text-muted">
+                    +{{ order.items.length - 2 }} more
+                  </small>
+                </div>
+              </div>
+            </td>
+            
+            <td>
+              <div class="order-total">
+                <strong>${{ order.totalAmount.toFixed(2) }}</strong>
+              </div>
+            </td>
+            
+            <td>
+              <div class="status-container">
+                <select 
+                  [value]="order.status"
+                  (change)="onOrderStatusChange(order, $event)"
+                  class="status-select"
+                  [style.background-color]="getStatusInfo(order.status)?.color">
+                  <option *ngFor="let status of statusOptions.slice(1)" [value]="status.value">
+                    {{ getStatusIcon(status.value) }} {{ status.label }}
+                  </option>
+                </select>
+              </div>
+            </td>
+            
+            <td>
+              <div class="payment-container">
+                <select 
+                  [value]="order.paymentStatus"
+                  (change)="onPaymentStatusChange(order, $event)"
+                  class="payment-select"
+                  [class]="'payment-' + order.paymentStatus">
+                  <option *ngFor="let status of paymentStatusOptions" [value]="status.value">
+                    {{ status.label }}
+                  </option>
+                </select>
+              </div>
+            </td>
+            
+            <td>
+              <div class="action-buttons">
+                <a [routerLink]="['/orders', order._id]" 
+                   class="btn btn-sm btn-outline-primary" 
+                   title="View Details">
+                  <i class="fas fa-eye"></i>
+                </a>
+                
+                <button 
+                  class="btn btn-sm btn-outline-secondary"
+                  title="Print Invoice"
+                  (click)="exportOrders()">
+                  <i class="fas fa-print"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div class="empty-state" *ngIf="!isLoading && orders.length === 0">
+    <div class="empty-icon">📦</div>
+    <h2>No Orders Found</h2>
+    <p *ngIf="selectedStatus">
+      No orders found with status "{{ getStatusInfo(selectedStatus)?.label }}".
+    </p>
+    <p *ngIf="!selectedStatus">
+      No orders have been placed yet.
+    </p>
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination-container" *ngIf="!isLoading && orders.length > 0 && totalPages > 1">
+    <div class="pagination">
+      <button 
+        class="pagination-btn"
+        [disabled]="currentPage === 1"
+        (click)="onPageChange(currentPage - 1)">
+        ‹ Previous
+      </button>
+      
+      <button 
+        *ngFor="let page of getPageNumbers()"
+        class="pagination-btn"
+        [class.active]="page === currentPage"
+        (click)="onPageChange(page)">
+        {{ page }}
+      </button>
+      
+      <button 
+        class="pagination-btn"
+        [disabled]="currentPage === totalPages"
+        (click)="onPageChange(currentPage + 1)">
+        Next ›
+      </button>
+    </div>
+    
+    <div class="pagination-info">
+      Page {{ currentPage }} of {{ totalPages }}
+    </div>
+  </div>
+</div>

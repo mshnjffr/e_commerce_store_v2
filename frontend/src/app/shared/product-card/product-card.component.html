@@ -1,0 +1,144 @@
+<div class="product-card" [class.list-layout]="layout === 'list'" [class.grid-layout]="layout === 'grid'">
+  <!-- Product Image Section -->
+  <div class="product-image-container">
+    <div class="image-wrapper">
+      <!-- Loading Spinner -->
+      <div *ngIf="isImageLoading" class="image-loading">
+        <div class="spinner-border spinner-border-sm" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+
+      <!-- Product Image -->
+      <img 
+        *ngIf="product.images && product.images.length > 0 && !imageError"
+        [src]="product.images[currentImageIndex]" 
+        [alt]="product.name"
+        class="product-image"
+        (load)="onImageLoad()"
+        (error)="onImageError()"
+        [style.display]="isImageLoading ? 'none' : 'block'"
+      />
+
+      <!-- Fallback Image -->
+      <div *ngIf="!product.images || product.images.length === 0 || imageError" class="no-image">
+        <i class="fas fa-image"></i>
+        <span>No Image</span>
+      </div>
+
+      <!-- Image Navigation -->
+      <div *ngIf="hasMultipleImages && !isImageLoading" class="image-navigation">
+        <button class="nav-btn prev-btn" (click)="previousImage()" aria-label="Previous image">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="nav-btn next-btn" (click)="nextImage()" aria-label="Next image">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+
+      <!-- Image Indicators -->
+      <div *ngIf="hasMultipleImages && !isImageLoading" class="image-indicators">
+        <span 
+          *ngFor="let image of product.images; let i = index"
+          class="indicator"
+          [class.active]="i === currentImageIndex"
+          (click)="selectImage(i)"
+        ></span>
+      </div>
+
+      <!-- Wishlist Button -->
+      <button 
+        *ngIf="showWishlist"
+        class="wishlist-btn"
+        (click)="onAddToWishlist()"
+        aria-label="Add to wishlist"
+      >
+        <i class="far fa-heart"></i>
+      </button>
+
+      <!-- Out of Stock Badge -->
+      <div *ngIf="isOutOfStock" class="stock-badge out-of-stock">
+        Out of Stock
+      </div>
+
+      <!-- Featured Badge -->
+      <div *ngIf="product.featured" class="stock-badge featured">
+        Featured
+      </div>
+    </div>
+  </div>
+
+  <!-- Product Content -->
+  <div class="product-content">
+    <div class="product-info">
+      <!-- Product Title -->
+      <h3 class="product-title">
+        <a [routerLink]="['/product', product._id]">
+          {{ product.name }}
+        </a>
+      </h3>
+
+      <!-- Product Category -->
+      <div *ngIf="product.category && product.category._id" class="product-category">
+        <a [routerLink]="['/category', product.category._id]">
+          {{ product.category.name }}
+        </a>
+      </div>
+      <div *ngIf="product.categoryId && !product.category" class="product-category">
+        <a [routerLink]="['/category', product.categoryId]">
+          Category
+        </a>
+      </div>
+
+      <!-- Product Rating -->
+      <div class="product-rating">
+        <app-product-rating 
+          [rating]="product.rating?.average || 0"
+          [reviewCount]="product.rating?.count || 0"
+          [showCount]="true"
+          size="small"
+        ></app-product-rating>
+      </div>
+
+      <!-- Product Description -->
+      <p class="product-description" [class.list-description]="layout === 'list'">
+        {{ layout === 'list' ? truncateText(product.description, 200) : truncateText(product.description, 100) }}
+      </p>
+
+      <!-- Product Price -->
+      <div class="product-price">
+        <span class="current-price">{{ displayPrice }}</span>
+        <!-- Add discount price logic here if needed -->
+      </div>
+
+      <!-- Stock Status -->
+      <div class="stock-status" [class]="stockClass">
+        <i class="fas fa-box"></i>
+        {{ stockStatus }}
+      </div>
+    </div>
+
+    <!-- Product Actions -->
+    <div class="product-actions">
+      <app-add-to-cart-button
+        *ngIf="showAddToCart"
+        [product]="product"
+        [quantity]="1"
+        [showQuantitySelector]="false"
+        [buttonText]="'Add to Cart'"
+        [buttonClass]="'btn-primary'"
+        [size]="'sm'"
+        [showStockInfo]="false"
+        (added)="onAddToCart()">
+      </app-add-to-cart-button>
+
+      <a 
+        class="btn btn-outline-primary btn-view-details btn-sm"
+        [routerLink]="['/product', product._id]"
+      >
+        <i class="bi bi-eye me-1"></i>
+        View Details
+      </a>
+    </div>
+  </div>
+</div>

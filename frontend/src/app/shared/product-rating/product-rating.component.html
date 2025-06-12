@@ -1,0 +1,20 @@
+<div class="rating-container">
+  <div class="stars-container">
+    <span 
+      *ngFor="let star of stars; let i = index" 
+      [class]="getStarClass(i)"
+      [class.interactive]="interactive"
+      (click)="onStarClick(i)"
+      [title]="interactive ? 'Rate ' + (i + 1) + ' star' + (i > 0 ? 's' : '') : ''"
+    >
+      ★
+    </span>
+  </div>
+  
+  <div class="rating-info" *ngIf="showCount || rating > 0">
+    <span class="rating-value">{{ rating.toFixed(1) }}</span>
+    <span class="review-count" *ngIf="showCount && reviewCount > 0">
+      ({{ reviewCount }} {{ reviewCount === 1 ? 'review' : 'reviews' }})
+    </span>
+  </div>
+</div>

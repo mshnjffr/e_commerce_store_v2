@@ -1,0 +1,98 @@
+<div class="checkout-container" *ngIf="!isLoading">
+  <!-- Header -->
+  <div class="checkout-header">
+    <h1>Checkout</h1>
+    <p>Review your order and confirm to place it.</p>
+  </div>
+
+  <div class="checkout-content">
+    <!-- Order Items -->
+    <div class="checkout-section">
+      <h2>Order Summary</h2>
+      
+      <div class="order-items" *ngIf="cart">
+        <div class="order-item" *ngFor="let item of cart.items">
+          <div class="item-image">
+            <img 
+              [src]="item.productId.images[0]" 
+              [alt]="item.productId.name"
+              onerror="this.src='/assets/images/placeholder.jpg'">
+          </div>
+          
+          <div class="item-details">
+            <h3>{{ item.productId.name }}</h3>
+            <div class="item-specs">
+              <div class="spec-item">
+                <span class="spec-label">Price:</span>
+                <span class="spec-value">${{ item.price.toFixed(2) }}</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-label">Quantity:</span>
+                <span class="spec-value">{{ item.quantity }}</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-label">Total:</span>
+                <span class="spec-value total">${{ (item.price * item.quantity).toFixed(2) }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Order Totals -->
+      <div class="order-totals">
+        <div class="total-line">
+          <span>Subtotal:</span>
+          <span>${{ getSubtotal().toFixed(2) }}</span>
+        </div>
+        <div class="total-line">
+          <span>Shipping:</span>
+          <span>{{ getShippingCost() === 0 ? 'FREE' : '$' + getShippingCost().toFixed(2) }}</span>
+        </div>
+        <div class="total-line">
+          <span>Tax:</span>
+          <span>${{ getTax().toFixed(2) }}</span>
+        </div>
+        <div class="total-line final-total">
+          <span><strong>Total:</strong></span>
+          <span><strong>${{ getTotal().toFixed(2) }}</strong></span>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="checkout-actions">
+        <button 
+          type="button" 
+          class="btn btn-secondary" 
+          routerLink="/cart">
+          Back to Cart
+        </button>
+        
+        <button 
+          type="button" 
+          class="btn btn-primary btn-place-order" 
+          (click)="placeOrder()" 
+          [disabled]="isSubmitting || !cart || cart.items.length === 0">
+          <span *ngIf="!isSubmitting">Place Order - ${{ getTotal().toFixed(2) }}</span>
+          <span *ngIf="isSubmitting">Processing...</span>
+        </button>
+      </div>
+
+      <!-- Order Success -->
+      <div class="order-success" *ngIf="orderPlaced">
+        <div class="success-icon">✅</div>
+        <h2>Order Placed Successfully!</h2>
+        <p>Thank you for your purchase. Your order has been confirmed and will be processed shortly.</p>
+        <div class="success-actions">
+          <a routerLink="/orders" class="btn btn-primary">View My Orders</a>
+          <a routerLink="/products" class="btn btn-secondary">Continue Shopping</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="loading-container" *ngIf="isLoading">
+  <div class="loading-spinner"></div>
+  <p>Loading checkout...</p>
+</div>

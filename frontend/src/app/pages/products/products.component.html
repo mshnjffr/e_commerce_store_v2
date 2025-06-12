@@ -1,0 +1,133 @@
+<div class="products-page">
+  <div class="container-fluid">
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <h1 class="page-title">Products</h1>
+          <div class="results-info" *ngIf="!isLoading && products.length > 0">
+            <span class="results-count">
+              Showing {{ showingFrom }}-{{ showingTo }} of {{ totalProducts }} products
+            </span>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="page-controls">
+            <!-- Layout Toggle -->
+            <div class="layout-toggle">
+              <button
+                class="btn btn-outline-secondary layout-btn"
+                [class.active]="layout === 'grid'"
+                (click)="onLayoutChange('grid')"
+                aria-label="Grid view"
+              >
+                <i class="fas fa-th"></i>
+              </button>
+              <button
+                class="btn btn-outline-secondary layout-btn"
+                [class.active]="layout === 'list'"
+                (click)="onLayoutChange('list')"
+                aria-label="List view"
+              >
+                <i class="fas fa-list"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Search and Filters -->
+    <app-search-filters
+      [categories]="categories"
+      [filters]="filters"
+      [isLoading]="isLoading"
+      (filtersChange)="onFiltersChange($event)"
+      (clearFilters)="onClearFilters()"
+    ></app-search-filters>
+
+    <!-- Products Grid -->
+    <div class="products-section">
+      <app-product-grid
+        [products]="products"
+        [isLoading]="isLoading || isLoadingMore"
+        [layout]="layout"
+        [showLoadMore]="true"
+        [hasMore]="hasMore"
+        (addToCart)="onAddToCart($event)"
+        (addToWishlist)="onAddToWishlist($event)"
+        (loadMore)="onLoadMore()"
+      ></app-product-grid>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination-section" *ngIf="!isLoading && products.length > 0 && totalPages > 1">
+      <nav aria-label="Products pagination">
+        <ul class="pagination justify-content-center">
+          <!-- First page -->
+          <li class="page-item" [class.disabled]="currentPage === 1">
+            <button class="page-link" (click)="goToFirstPage()" [disabled]="currentPage === 1">
+              <i class="fas fa-angle-double-left"></i>
+            </button>
+          </li>
+
+          <!-- Previous page -->
+          <li class="page-item" [class.disabled]="currentPage === 1">
+            <button class="page-link" (click)="goToPreviousPage()" [disabled]="currentPage === 1">
+              <i class="fas fa-angle-left"></i>
+            </button>
+          </li>
+
+          <!-- Page numbers -->
+          <li
+            *ngFor="let page of getVisiblePageNumbers()"
+            class="page-item"
+            [class.active]="page === currentPage"
+            [class.disabled]="page === -1"
+          >
+            <button
+              *ngIf="page !== -1"
+              class="page-link"
+              (click)="goToPage(page)"
+              [class.active]="page === currentPage"
+            >
+              {{ page }}
+            </button>
+            <span *ngIf="page === -1" class="page-link dots">...</span>
+          </li>
+
+          <!-- Next page -->
+          <li class="page-item" [class.disabled]="currentPage === totalPages">
+            <button class="page-link" (click)="goToNextPage()" [disabled]="currentPage === totalPages">
+              <i class="fas fa-angle-right"></i>
+            </button>
+          </li>
+
+          <!-- Last page -->
+          <li class="page-item" [class.disabled]="currentPage === totalPages">
+            <button class="page-link" (click)="goToLastPage()" [disabled]="currentPage === totalPages">
+              <i class="fas fa-angle-double-right"></i>
+            </button>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Page info -->
+      <div class="page-info text-center mt-3">
+        <span class="text-muted">
+          Page {{ currentPage }} of {{ totalPages }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Back to top button -->
+    <button
+      class="btn btn-primary back-to-top"
+      (click)="scrollToTop()"
+      [class.visible]="showBackToTop"
+      aria-label="Back to top"
+    >
+      <i class="fas fa-arrow-up"></i>
+    </button>
+  </div>
+</div>

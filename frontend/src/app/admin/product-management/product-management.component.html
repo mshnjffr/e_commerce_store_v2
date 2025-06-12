@@ -1,0 +1,379 @@
+<div class="product-management-page">
+  <div class="container-fluid">
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <h1 class="page-title">
+            <i class="fas fa-box"></i>
+            Product Management
+          </h1>
+          <p class="page-subtitle">Manage your product catalog</p>
+        </div>
+        <div class="col-md-6">
+          <div class="page-actions">
+            <button 
+              class="btn btn-primary"
+              (click)="showAddProductForm()"
+            >
+              <i class="fas fa-plus"></i>
+              Add New Product
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filters and Search -->
+    <div class="filters-section">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input
+              type="text"
+              class="form-control search-input"
+              placeholder="Search products..."
+              (keyup)="onSearchChange($any($event.target).value)"
+            />
+          </div>
+        </div>
+        <div class="col-md-4">
+          <select
+            class="form-select"
+            (change)="onCategoryFilter($any($event.target).value)"
+          >
+            <option value="">All Categories</option>
+            <option *ngFor="let category of categories" [value]="category._id">
+              {{ category.name }}
+            </option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <div class="results-info" *ngIf="!isLoading && products.length > 0">
+            <small class="text-muted">
+              {{ showingFrom }}-{{ showingTo }} of {{ totalProducts }}
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Form Modal -->
+    <div class="product-form-overlay" *ngIf="showProductForm" (click)="cancelEdit()">
+      <div class="product-form-modal" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h3>{{ isEditing ? 'Edit Product' : 'Add New Product' }}</h3>
+          <button class="btn btn-link close-btn" (click)="cancelEdit()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        
+        <div class="modal-body">
+          <form (ngSubmit)="saveProduct()">
+            <div class="row">
+              <div class="col-md-8">
+                <div class="mb-3">
+                  <label class="form-label">Product Name *</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="currentProduct.name"
+                    name="name"
+                    required
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">Description *</label>
+                  <textarea
+                    class="form-control"
+                    rows="4"
+                    [(ngModel)]="currentProduct.description"
+                    name="description"
+                    required
+                  ></textarea>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label class="form-label">Price *</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        [(ngModel)]="currentProduct.price"
+                        name="price"
+                        step="0.01"
+                        min="0"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label class="form-label">Stock *</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        [(ngModel)]="currentProduct.stock"
+                        name="stock"
+                        min="0"
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label class="form-label">SKU *</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        [(ngModel)]="currentProduct.sku"
+                        name="sku"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label class="form-label">Category *</label>
+                      <select
+                        class="form-select"
+                        [(ngModel)]="currentProduct.categoryId"
+                        name="categoryId"
+                        required
+                      >
+                        <option value="">Select Category</option>
+                        <option *ngFor="let category of categories" [value]="category._id">
+                          {{ category.name }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <div class="form-check">
+                    <input
+                      type="checkbox"
+                      class="form-check-input"
+                      [(ngModel)]="currentProduct.featured"
+                      name="featured"
+                      id="featured"
+                    />
+                    <label class="form-check-label" for="featured">
+                      Featured Product
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="mb-3">
+                  <label class="form-label">Product Images</label>
+                  <div class="image-inputs">
+                    <div 
+                      *ngFor="let image of currentProduct.images; let i = index"
+                      class="image-input-group"
+                    >
+                      <input
+                        type="url"
+                        class="form-control"
+                        [(ngModel)]="currentProduct.images![i]"
+                        [name]="'image' + i"
+                        placeholder="Image URL"
+                      />
+                      <button
+                        type="button"
+                        class="btn btn-outline-danger btn-sm"
+                        (click)="removeImageUrl(i)"
+                      >
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </div>
+                    <button
+                      type="button"
+                      class="btn btn-outline-primary btn-sm"
+                      (click)="addImageUrl()"
+                    >
+                      <i class="fas fa-plus"></i>
+                      Add Image URL
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" (click)="cancelEdit()">
+                Cancel
+              </button>
+              <button type="submit" class="btn btn-primary">
+                {{ isEditing ? 'Update Product' : 'Create Product' }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Products Table -->
+    <div class="products-section">
+      <div *ngIf="isLoading" class="loading-container">
+        <div class="text-center py-5">
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading products...</span>
+          </div>
+          <p class="mt-3">Loading products...</p>
+        </div>
+      </div>
+
+      <div *ngIf="!isLoading && products.length === 0" class="empty-state">
+        <div class="text-center py-5">
+          <i class="fas fa-box-open fa-3x text-muted mb-3"></i>
+          <h4>No Products Found</h4>
+          <p class="text-muted">Start by adding your first product to the catalog.</p>
+          <button class="btn btn-primary" (click)="showAddProductForm()">
+            <i class="fas fa-plus"></i>
+            Add First Product
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="!isLoading && products.length > 0" class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Product</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>Stock</th>
+              <th>Status</th>
+              <th>Created</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let product of products; trackBy: trackByProductId">
+              <td>
+                <div class="product-image">
+                  <img 
+                    *ngIf="product.images && product.images.length > 0"
+                    [src]="product.images[0]"
+                    [alt]="product.name"
+                    class="img-thumbnail"
+                  />
+                  <div *ngIf="!product.images || product.images.length === 0" class="no-image">
+                    <i class="fas fa-image"></i>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="product-info">
+                  <h6 class="product-name">{{ product.name }}</h6>
+                  <small class="text-muted">SKU: {{ product.sku }}</small>
+                  <div *ngIf="product.featured" class="badge bg-warning mt-1">
+                    Featured
+                  </div>
+                </div>
+              </td>
+              <td>
+                <span class="category-badge">
+                  {{ getCategoryName(product.categoryId) }}
+                </span>
+              </td>
+              <td>
+                <span class="price">{{ formatPrice(product.price) }}</span>
+              </td>
+              <td>
+                <span [class]="getStockClass(product.stock)">
+                  {{ product.stock }}
+                </span>
+              </td>
+              <td>
+                <span class="badge" [class]="getStockClass(product.stock)">
+                  {{ getStockStatus(product.stock) }}
+                </span>
+              </td>
+              <td>
+                <small class="text-muted">{{ formatDate(product.createdAt) }}</small>
+              </td>
+              <td>
+                <div class="action-buttons">
+                  <a 
+                    [routerLink]="['/product', product._id]"
+                    class="btn btn-sm btn-outline-primary"
+                    title="View Product"
+                  >
+                    <i class="fas fa-eye"></i>
+                  </a>
+                  <button
+                    class="btn btn-sm btn-outline-secondary"
+                    (click)="editProduct(product)"
+                    title="Edit Product"
+                  >
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button
+                    class="btn btn-sm btn-outline-danger"
+                    (click)="deleteProduct(product)"
+                    title="Delete Product"
+                  >
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination-container" *ngIf="!isLoading && products.length > 0 && totalPages > 1">
+        <nav aria-label="Products pagination">
+          <ul class="pagination justify-content-center">
+            <li class="page-item" [class.disabled]="currentPage === 1">
+              <button class="page-link" (click)="goToPage(1)" [disabled]="currentPage === 1">
+                First
+              </button>
+            </li>
+            <li class="page-item" [class.disabled]="currentPage === 1">
+              <button class="page-link" (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">
+                Previous
+              </button>
+            </li>
+            <li
+              *ngFor="let page of [currentPage - 1, currentPage, currentPage + 1]"
+              class="page-item"
+              [class.active]="page === currentPage"
+              [class.disabled]="page < 1 || page > totalPages"
+            >
+              <button
+                *ngIf="page >= 1 && page <= totalPages"
+                class="page-link"
+                (click)="goToPage(page)"
+              >
+                {{ page }}
+              </button>
+            </li>
+            <li class="page-item" [class.disabled]="currentPage === totalPages">
+              <button class="page-link" (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages">
+                Next
+              </button>
+            </li>
+            <li class="page-item" [class.disabled]="currentPage === totalPages">
+              <button class="page-link" (click)="goToPage(totalPages)" [disabled]="currentPage === totalPages">
+                Last
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,154 @@
+<div class="cart-item" [class.compact]="compact" [class.disabled]="disabled">
+  <div class="row align-items-center g-3">
+    <!-- Product Image -->
+    <div [class]="compact ? 'col-3 col-md-2' : 'col-12 col-sm-3 col-md-2'">
+      <div class="product-image-container">
+        <img 
+          [src]="item.productId.images[0] || '/assets/placeholder-product.jpg'" 
+          [alt]="item.productId.name"
+          class="product-image"
+          (click)="onViewProduct()"
+          [routerLink]="['/product', item.productId._id]">
+        
+        <!-- Stock overlay for out of stock items -->
+        <div *ngIf="stockStatus === 'out-of-stock'" class="stock-overlay">
+          <span class="stock-text">Out of Stock</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Details -->
+    <div [class]="compact ? 'col-9 col-md-6' : 'col-12 col-sm-9 col-md-5'">
+      <div class="product-details">
+        <h6 class="product-name mb-1" 
+            (click)="onViewProduct()"
+            [routerLink]="['/product', item.productId._id]">
+          {{ item.productId.name }}
+        </h6>
+        
+        <div class="product-price mb-2">
+          <span class="price-current">${{ item.productId.price.toFixed(2) }}</span>
+          <span class="price-unit"> each</span>
+        </div>
+
+        <!-- Stock Status -->
+        <div class="stock-info">
+          <small [class]="'stock-text stock-' + stockStatus">
+            <i class="bi" [class]="stockStatus === 'in-stock' ? 'bi-check-circle' : 
+                                   stockStatus === 'low-stock' ? 'bi-exclamation-triangle' : 
+                                   'bi-x-circle'"></i>
+            {{ stockText }}
+          </small>
+        </div>
+
+        <!-- Mobile Quantity Controls (shown on small screens) -->
+        <div *ngIf="showQuantityControls" class="quantity-controls-mobile d-sm-none mt-2">
+          <div class="input-group input-group-sm">
+            <button 
+              class="btn btn-outline-secondary"
+              type="button"
+              (click)="updateQuantity(-1)"
+              [disabled]="!canDecreaseQuantity">
+              <i class="bi bi-dash"></i>
+            </button>
+            <input 
+              type="number" 
+              class="form-control text-center quantity-input"
+              [value]="item.quantity"
+              readonly>
+            <button 
+              class="btn btn-outline-secondary"
+              type="button"
+              (click)="updateQuantity(1)"
+              [disabled]="!canIncreaseQuantity">
+              <i class="bi bi-plus"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quantity Controls (Desktop) -->
+    <div *ngIf="showQuantityControls && !compact" class="col-12 col-sm-6 col-md-3 d-none d-sm-block">
+      <div class="quantity-controls">
+        <label class="form-label small text-muted">Quantity</label>
+        <div class="input-group">
+          <button 
+            class="btn btn-outline-secondary"
+            type="button"
+            (click)="updateQuantity(-1)"
+            [disabled]="!canDecreaseQuantity">
+            <i class="bi bi-dash"></i>
+          </button>
+          <input 
+            type="number" 
+            class="form-control text-center quantity-input"
+            [value]="item.quantity"
+            readonly>
+          <button 
+            class="btn btn-outline-secondary"
+            type="button"
+            (click)="updateQuantity(1)"
+            [disabled]="!canIncreaseQuantity">
+            <i class="bi bi-plus"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Price and Actions -->
+    <div [class]="compact ? 'col-12 col-md-4' : 'col-12 col-sm-6 col-md-2'">
+      <div class="price-and-actions">
+        <!-- Total Price -->
+        <div class="item-total mb-2">
+          <span class="total-label small text-muted">Total:</span>
+          <div class="total-price">${{ totalPrice.toFixed(2) }}</div>
+        </div>
+
+        <!-- Compact Quantity (for compact view) -->
+        <div *ngIf="compact && showQuantityControls" class="compact-quantity mb-2">
+          <small class="text-muted">Qty: </small>
+          <div class="quantity-compact d-inline-flex align-items-center">
+            <button 
+              class="btn btn-sm btn-outline-secondary"
+              (click)="updateQuantity(-1)"
+              [disabled]="!canDecreaseQuantity">
+              <i class="bi bi-dash"></i>
+            </button>
+            <span class="quantity-value">{{ item.quantity }}</span>
+            <button 
+              class="btn btn-sm btn-outline-secondary"
+              (click)="updateQuantity(1)"
+              [disabled]="!canIncreaseQuantity">
+              <i class="bi bi-plus"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Remove Button -->
+        <div *ngIf="showRemoveButton" class="remove-actions">
+          <button 
+            class="btn btn-outline-danger btn-sm"
+            (click)="onRemoveItem()"
+            [disabled]="disabled"
+            title="Remove item from cart">
+            <i class="bi bi-trash me-1"></i>
+            <span class="d-none d-md-inline">Remove</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Total (visible only on mobile for non-compact view) -->
+  <div *ngIf="!compact" class="row d-sm-none mt-2">
+    <div class="col-6">
+      <small class="text-muted">Quantity: {{ item.quantity }}</small>
+    </div>
+    <div class="col-6 text-end">
+      <div class="mobile-total">
+        <strong>${{ totalPrice.toFixed(2) }}</strong>
+      </div>
+    </div>
+  </div>
+</div>

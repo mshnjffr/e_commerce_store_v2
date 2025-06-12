@@ -1,0 +1,209 @@
+<div class="orders-container">
+  <div class="orders-header">
+    <div class="header-content">
+      <h1>My Orders</h1>
+      <p>Track and manage your order history</p>
+    </div>
+    
+    <div class="orders-filters">
+      <div class="filter-group">
+        <label for="statusFilter">Filter by Status:</label>
+        <select 
+          id="statusFilter" 
+          [(ngModel)]="selectedStatus" 
+          (change)="onStatusChange()"
+          class="filter-select">
+          <option *ngFor="let option of statusOptions" [value]="option.value">
+            {{ option.label }}
+          </option>
+        </select>
+      </div>
+      
+      <div class="results-info" *ngIf="!isLoading">
+        Showing {{ orders.length }} of {{ totalItems }} orders
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div class="loading-container" *ngIf="isLoading">
+    <div class="loading-spinner"></div>
+    <p>Loading your orders...</p>
+  </div>
+
+  <!-- Orders List -->
+  <div class="orders-list" *ngIf="!isLoading && orders.length > 0">
+    <div class="order-card" *ngFor="let order of orders; trackBy: trackByOrderId">
+      <div class="order-header">
+        <div class="order-info">
+          <div class="order-number">
+            <strong>Order #{{ order.orderNumber }}</strong>
+          </div>
+          <div class="order-date">
+            {{ formatDate(order.createdAt) }}
+          </div>
+        </div>
+        
+        <div class="order-status">
+          <span 
+            class="status-badge"
+            [style.background-color]="getStatusInfo(order.status)?.color">
+            {{ getStatusIcon(order.status) }} {{ getStatusInfo(order.status)?.label }}
+          </span>
+        </div>
+      </div>
+
+      <div class="order-items">
+        <div class="order-item" *ngFor="let item of order.items; let i = index">
+          <img 
+            [src]="item.productId?.images?.[0] || '/assets/images/placeholder.jpg'" 
+            [alt]="item.productId?.name || item.productName"
+            class="item-image"
+            onerror="this.src='/assets/images/placeholder.jpg'">
+          <div class="item-details">
+            <h4>{{ item.productId?.name || item.productName }}</h4>
+            <p>Quantity: {{ item.quantity }}</p>
+            <p class="item-price">${{ item.totalPrice.toFixed(2) }}</p>
+          </div>
+        </div>
+        
+        <!-- Show "and X more items" if there are more than 3 items -->
+        <div class="more-items" *ngIf="order.items.length > 3">
+          <p>... and {{ order.items.length - 3 }} more items</p>
+        </div>
+      </div>
+
+      <div class="order-summary">
+        <div class="summary-info">
+          <div class="payment-info">
+            <span class="payment-method">{{ order.paymentMethod.replace('_', ' ').toUpperCase() }}</span>
+            <span class="payment-status" [class]="'payment-' + order.paymentStatus">
+              {{ order.paymentStatus.toUpperCase() }}
+            </span>
+          </div>
+          <div class="order-total">
+            <strong>Total: ${{ order.totalAmount.toFixed(2) }}</strong>
+          </div>
+        </div>
+
+        <div class="order-actions">
+          <a [routerLink]="['/orders', order._id]" class="btn btn-primary btn-sm">
+            View Details
+          </a>
+          
+          <button 
+            *ngIf="canCancelOrder(order)"
+            (click)="cancelOrder(order)"
+            class="btn btn-danger btn-sm">
+            Cancel Order
+          </button>
+          
+          <button 
+            *ngIf="order.status === 'delivered'"
+            class="btn btn-secondary btn-sm">
+            Reorder
+          </button>
+        </div>
+      </div>
+
+      <!-- Order Progress -->
+      <div class="order-progress" *ngIf="order.status !== 'cancelled'">
+        <div class="progress-steps">
+          <div 
+            class="progress-step"
+            [class.completed]="['confirmed', 'processing', 'shipped', 'delivered'].includes(order.status)"
+            [class.active]="order.status === 'pending'">
+            <div class="step-icon">📝</div>
+            <div class="step-label">Ordered</div>
+          </div>
+          
+          <div 
+            class="progress-step"
+            [class.completed]="['processing', 'shipped', 'delivered'].includes(order.status)"
+            [class.active]="order.status === 'confirmed'">
+            <div class="step-icon">✅</div>
+            <div class="step-label">Confirmed</div>
+          </div>
+          
+          <div 
+            class="progress-step"
+            [class.completed]="['shipped', 'delivered'].includes(order.status)"
+            [class.active]="order.status === 'processing'">
+            <div class="step-icon">⚙️</div>
+            <div class="step-label">Processing</div>
+          </div>
+          
+          <div 
+            class="progress-step"
+            [class.completed]="order.status === 'delivered'"
+            [class.active]="order.status === 'shipped'">
+            <div class="step-icon">🚚</div>
+            <div class="step-label">Shipped</div>
+          </div>
+          
+          <div 
+            class="progress-step"
+            [class.completed]="order.status === 'delivered'"
+            [class.active]="order.status === 'delivered'">
+            <div class="step-icon">📦</div>
+            <div class="step-label">Delivered</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cancelled Order Notice -->
+      <div class="cancelled-notice" *ngIf="order.status === 'cancelled'">
+        <div class="notice-content">
+          <span class="notice-icon">❌</span>
+          <span class="notice-text">This order has been cancelled</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div class="empty-state" *ngIf="!isLoading && orders.length === 0">
+    <div class="empty-icon">📦</div>
+    <h2>No Orders Found</h2>
+    <p *ngIf="selectedStatus">
+      No orders found with status "{{ getStatusInfo(selectedStatus)?.label }}".
+    </p>
+    <p *ngIf="!selectedStatus">
+      You haven't placed any orders yet.
+    </p>
+    <a routerLink="/products" class="btn btn-primary">
+      Start Shopping
+    </a>
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination-container" *ngIf="!isLoading && orders.length > 0 && totalPages > 1">
+    <div class="pagination">
+      <button 
+        class="pagination-btn"
+        [disabled]="currentPage === 1"
+        (click)="onPageChange(currentPage - 1)">
+        ‹ Previous
+      </button>
+      
+      <button 
+        *ngFor="let page of getPageNumbers()"
+        class="pagination-btn"
+        [class.active]="page === currentPage"
+        (click)="onPageChange(page)">
+        {{ page }}
+      </button>
+      
+      <button 
+        class="pagination-btn"
+        [disabled]="currentPage === totalPages"
+        (click)="onPageChange(currentPage + 1)">
+        Next ›
+      </button>
+    </div>
+    
+    <div class="pagination-info">
+      Page {{ currentPage }} of {{ totalPages }}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,205 @@
+<div class="search-filters">
+  <!-- Search Bar -->
+  <div class="search-section">
+    <div class="search-input-container">
+      <i class="fas fa-search search-icon"></i>
+      <input
+        type="text"
+        class="form-control search-input"
+        placeholder="Search products..."
+        [(ngModel)]="searchTerm"
+        (ngModelChange)="onSearchChange()"
+        [disabled]="isLoading"
+      />
+      <button
+        *ngIf="searchTerm"
+        class="clear-search-btn"
+        (click)="searchTerm = ''; onSearchChange()"
+        aria-label="Clear search"
+      >
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Filters Toggle (Mobile) -->
+  <div class="filters-toggle d-md-none">
+    <button
+      class="btn btn-outline-primary btn-filters-toggle"
+      (click)="toggleFilters()"
+      [class.active]="isFiltersExpanded"
+    >
+      <i class="fas fa-filter"></i>
+      Filters
+      <span *ngIf="hasActiveFilters()" class="badge bg-primary ms-2">
+        {{ getActiveFiltersCount() }}
+      </span>
+    </button>
+  </div>
+
+  <!-- Filters Container -->
+  <div 
+    class="filters-container"
+    [class.expanded]="isFiltersExpanded"
+    [class.d-md-block]="true"
+  >
+    <div class="row g-3">
+      <!-- Category Filter -->
+      <div class="col-md-6 col-lg-3">
+        <label class="form-label">Category</label>
+        <select
+          class="form-select"
+          [(ngModel)]="selectedCategory"
+          (ngModelChange)="onCategoryChange()"
+          [disabled]="isLoading"
+        >
+          <option value="">All Categories</option>
+          <option
+            *ngFor="let category of categories"
+            [value]="category._id"
+          >
+            {{ category.name }}
+            <span *ngIf="category.productCount">({{ category.productCount }})</span>
+          </option>
+        </select>
+      </div>
+
+      <!-- Price Range -->
+      <div class="col-md-6 col-lg-3">
+        <label class="form-label">
+          Price Range
+          <span class="price-range-display">{{ priceRangeLabel }}</span>
+        </label>
+        <div class="price-inputs">
+          <input
+            type="number"
+            class="form-control price-input"
+            placeholder="Min"
+            [(ngModel)]="minPrice"
+            (ngModelChange)="onPriceChange()"
+            [disabled]="isLoading"
+            min="0"
+            step="0.01"
+          />
+          <span class="price-separator">-</span>
+          <input
+            type="number"
+            class="form-control price-input"
+            placeholder="Max"
+            [(ngModel)]="maxPrice"
+            (ngModelChange)="onPriceChange()"
+            [disabled]="isLoading"
+            min="0"
+            step="0.01"
+          />
+        </div>
+      </div>
+
+      <!-- Rating Filter -->
+      <div class="col-md-6 col-lg-2">
+        <label class="form-label">Minimum Rating</label>
+        <select
+          class="form-select"
+          [(ngModel)]="minRating"
+          (ngModelChange)="onRatingChange()"
+          [disabled]="isLoading"
+        >
+          <option
+            *ngFor="let option of ratingOptions"
+            [value]="option.value"
+          >
+            {{ option.label }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Sort Options -->
+      <div class="col-md-6 col-lg-2">
+        <label class="form-label">Sort By</label>
+        <select
+          class="form-select"
+          [(ngModel)]="sortBy"
+          (ngModelChange)="onSortChange()"
+          [disabled]="isLoading"
+        >
+          <option value="">Default</option>
+          <option
+            *ngFor="let option of sortOptions"
+            [value]="option.value"
+          >
+            {{ option.label }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Sort Order -->
+      <div class="col-md-6 col-lg-2" *ngIf="sortBy">
+        <label class="form-label">Order</label>
+        <select
+          class="form-select"
+          [(ngModel)]="sortOrder"
+          (ngModelChange)="onSortChange()"
+          [disabled]="isLoading"
+        >
+          <option value="asc">
+            {{ sortBy === 'price' ? 'Low to High' : 'A to Z' }}
+          </option>
+          <option value="desc">
+            {{ sortBy === 'price' ? 'High to Low' : 'Z to A' }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Active Filters Display -->
+    <div *ngIf="hasActiveFilters()" class="active-filters">
+      <div class="active-filters-header">
+        <span class="active-filters-title">Active Filters:</span>
+        <button
+          class="btn btn-link btn-sm text-danger"
+          (click)="onClearFilters()"
+        >
+          <i class="fas fa-times"></i>
+          Clear All
+        </button>
+      </div>
+      
+      <div class="filter-tags">
+        <span *ngIf="searchTerm" class="filter-tag">
+          Search: "{{ searchTerm }}"
+          <button (click)="searchTerm = ''; onSearchChange()">
+            <i class="fas fa-times"></i>
+          </button>
+        </span>
+        
+        <span *ngIf="selectedCategory" class="filter-tag">
+          Category: {{ getCategoryName(selectedCategory) }}
+          <button (click)="selectedCategory = ''; onCategoryChange()">
+            <i class="fas fa-times"></i>
+          </button>
+        </span>
+        
+        <span *ngIf="minPrice || maxPrice" class="filter-tag">
+          Price: {{ priceRangeLabel }}
+          <button (click)="minPrice = null; maxPrice = null; onPriceChange()">
+            <i class="fas fa-times"></i>
+          </button>
+        </span>
+        
+        <span *ngIf="minRating > 0" class="filter-tag">
+          Rating: {{ minRating }}+ Stars
+          <button (click)="minRating = 0; onRatingChange()">
+            <i class="fas fa-times"></i>
+          </button>
+        </span>
+        
+        <span *ngIf="sortBy" class="filter-tag">
+          Sort: {{ getSortLabel() }}
+          <button (click)="sortBy = ''; sortOrder = 'asc'; onSortChange()">
+            <i class="fas fa-times"></i>
+          </button>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

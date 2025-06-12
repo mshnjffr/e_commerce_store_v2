@@ -1,0 +1,136 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Shopping Cart</h1>
+    <button 
+      *ngIf="cart && getValidItems().length > 0" 
+      class="btn btn-outline-danger"
+      (click)="clearCart()">
+      Clear Cart
+    </button>
+  </div>
+  
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="text-center py-5">
+    <div class="spinner-border"></div>
+    <p class="mt-2">Loading cart...</p>
+  </div>
+  
+  <!-- Empty Cart -->
+  <div *ngIf="!isLoading && isAuthenticated && (!cart || getValidItems().length === 0)" class="text-center py-5">
+    <i class="bi bi-cart-x" style="font-size: 4rem; color: #6c757d;"></i>
+    <h3 class="mt-3">Your cart is empty</h3>
+    <p class="text-muted">Add some products to get started!</p>
+    <a routerLink="/" class="btn btn-primary">Continue Shopping</a>
+  </div>
+
+  <!-- Guest User Cart -->
+  <div *ngIf="!isLoading && !isAuthenticated" class="text-center py-5">
+    <div *ngIf="guestCartItemCount === 0">
+      <i class="bi bi-cart-x" style="font-size: 4rem; color: #6c757d;"></i>
+      <h3 class="mt-3">Your cart is empty</h3>
+      <p class="text-muted">Add some products to get started!</p>
+      <a routerLink="/" class="btn btn-primary">Continue Shopping</a>
+    </div>
+    
+    <div *ngIf="guestCartItemCount > 0" class="card p-5">
+      <i class="bi bi-cart-check" style="font-size: 4rem; color: #28a745;"></i>
+      <h3 class="mt-3">You have {{ guestCartItemCount }} item(s) in your cart</h3>
+      <p class="text-muted mb-4">Please log in to view your cart details and proceed to checkout.</p>
+      
+      <div class="d-flex gap-3 justify-content-center">
+        <a routerLink="/auth" class="btn btn-primary">
+          <i class="bi bi-person-plus me-2"></i>
+          Login / Register
+        </a>
+        <a routerLink="/" class="btn btn-outline-primary">
+          <i class="bi bi-arrow-left me-2"></i>
+          Continue Shopping
+        </a>
+      </div>
+      
+      <div class="mt-4">
+        <small class="text-muted">
+          <i class="bi bi-info-circle me-1"></i>
+          Your cart items will be saved and merged when you log in.
+        </small>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Cart with Items -->
+  <div *ngIf="!isLoading && cart && getValidItems().length > 0" class="row">
+  <div class="col-md-8">
+  <div class="cart-items-container">
+  <app-cart-item 
+  *ngFor="let item of getValidItems(); trackBy: trackByProductId"
+  [item]="item"
+  [showQuantityControls]="true"
+  [showRemoveButton]="true"
+  [compact]="false"
+  (quantityChange)="onQuantityChange($event)"
+  (removeItem)="onRemoveItem($event)"
+  (viewProduct)="onViewProduct($event)">
+  </app-cart-item>
+  </div>
+      
+      <!-- Continue Shopping -->
+      <div class="text-center mt-4">
+        <a routerLink="/" class="btn btn-outline-primary">
+          <i class="bi bi-arrow-left me-2"></i>
+          Continue Shopping
+        </a>
+      </div>
+    </div>
+    
+    <!-- Order Summary -->
+    <div class="col-md-4">
+      <div class="card sticky-top" style="top: 20px;">
+        <div class="card-body">
+          <h5 class="card-title">Order Summary</h5>
+          
+          <!-- Item Count -->
+          <div class="d-flex justify-content-between mb-2">
+            <span>Items ({{ getItemCount() }}):</span>
+            <span>${{ getSubtotal().toFixed(2) }}</span>
+          </div>
+          
+          <!-- Shipping -->
+          <div class="d-flex justify-content-between mb-2">
+            <span>Shipping:</span>
+            <span>{{ getShippingCost() === 0 ? 'FREE' : '$' + getShippingCost().toFixed(2) }}</span>
+          </div>
+          
+          <!-- Tax if applicable -->
+          <div class="d-flex justify-content-between mb-2" *ngIf="getTax() > 0">
+            <span>Tax:</span>
+            <span>${{ getTax().toFixed(2) }}</span>
+          </div>
+          
+          <hr>
+          
+          <!-- Total -->
+          <div class="d-flex justify-content-between mb-3">
+            <strong>Total:</strong>
+            <strong class="text-primary">${{ getTotal().toFixed(2) }}</strong>
+          </div>
+          
+          <!-- Checkout Button -->
+          <button 
+            class="btn btn-primary w-100 btn-lg"
+            routerLink="/checkout">
+            <i class="bi bi-credit-card me-2"></i>
+            Proceed to Checkout
+          </button>
+          
+          <!-- Security Badge -->
+          <div class="text-center mt-3">
+            <small class="text-muted">
+              <i class="bi bi-shield-check me-1"></i>
+              Secure checkout powered by SSL
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

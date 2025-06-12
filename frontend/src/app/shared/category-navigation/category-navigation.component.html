@@ -1,0 +1,78 @@
+<div class="category-navigation">
+  <div class="category-header" *ngIf="!hierarchical">
+    <h4>Categories</h4>
+    <button 
+      class="btn btn-sm btn-outline-primary d-md-none" 
+      (click)="toggleExpanded()"
+      [attr.aria-expanded]="isExpanded"
+      aria-label="Toggle categories">
+      <i class="bi" [class.bi-chevron-down]="!isExpanded" [class.bi-chevron-up]="isExpanded"></i>
+    </button>
+  </div>
+
+  <div class="category-list" [class.expanded]="isExpanded || hierarchical">
+    <!-- Show all categories option -->
+    <a 
+      class="category-item" 
+      [class.active]="!selectedCategoryId"
+      [routerLink]="['/products']"
+      [queryParams]="{category: null}"
+      queryParamsHandling="merge">
+      <span class="category-name">All Products</span>
+      <span class="category-count" *ngIf="showProductCount">
+        {{ categories.reduce((sum, cat) => sum + (cat.productCount || 0), 0) }}
+      </span>
+    </a>
+
+    <!-- Hierarchical view -->
+    <ng-container *ngIf="hierarchical">
+      <div *ngFor="let category of organizedCategories" class="category-group">
+        <a 
+          class="category-item parent-category"
+          [class.active]="isSelected(category._id)"
+          (click)="onCategoryClick(category)">
+          <span class="category-name">{{ category.name }}</span>
+          <span class="category-count" *ngIf="showProductCount && category.productCount">
+            {{ category.productCount }}
+          </span>
+          <i 
+            class="bi" 
+            [class.bi-chevron-right]="!hasChildren(category._id)"
+            [class.bi-chevron-down]="hasChildren(category._id)"
+            *ngIf="hasChildren(category._id)">
+          </i>
+        </a>
+
+        <!-- Child categories -->
+        <div class="child-categories" *ngIf="hasChildren(category._id)">
+          <a 
+            *ngFor="let child of getChildCategories(category._id)"
+            class="category-item child-category"
+            [class.active]="isSelected(child._id)"
+            (click)="onCategoryClick(child)">
+            <span class="category-name">{{ child.name }}</span>
+            <span class="category-count" *ngIf="showProductCount && child.productCount">
+              {{ child.productCount }}
+            </span>
+          </a>
+        </div>
+      </div>
+    </ng-container>
+
+    <!-- Simple list view -->
+    <ng-container *ngIf="!hierarchical">
+      <a 
+        *ngFor="let category of organizedCategories"
+        class="category-item"
+        [class.active]="isSelected(category._id)"
+        [routerLink]="['/products']"
+        [queryParams]="{category: category.name}"
+        queryParamsHandling="merge">
+        <span class="category-name">{{ category.name }}</span>
+        <span class="category-count" *ngIf="showProductCount && category.productCount">
+          {{ category.productCount }}
+        </span>
+      </a>
+    </ng-container>
+  </div>
+</div>

@@ -1,0 +1,142 @@
+[
+  {
+    "name": "Electronics",
+    "description": "Electronic devices, gadgets, and accessories",
+    "image": "https://images.unsplash.com/photo-1518717758536-85ae29035b6d?w=400&h=300&fit=crop",
+    "parentCategory": null,
+    "isActive": true
+  },
+  {
+    "name": "Laptops & Computers",
+    "description": "Laptops, desktops, and computer accessories",
+    "image": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&h=300&fit=crop",
+    "parentCategory": "Electronics",
+    "isActive": true
+  },
+  {
+    "name": "Mobile Phones",
+    "description": "Smartphones, tablets, and mobile accessories",
+    "image": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400&h=300&fit=crop",
+    "parentCategory": "Electronics",
+    "isActive": true
+  },
+  {
+    "name": "Audio & Headphones",
+    "description": "Headphones, speakers, and audio equipment",
+    "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop",
+    "parentCategory": "Electronics",
+    "isActive": true
+  },
+  {
+    "name": "Cameras & Photography",
+    "description": "Digital cameras, lenses, and photography equipment",
+    "image": "https://images.unsplash.com/photo-1606983340126-99ab4feaa64a?w=400&h=300&fit=crop",
+    "parentCategory": "Electronics",
+    "isActive": true
+  },
+  {
+    "name": "Books",
+    "description": "Physical and digital books across all genres",
+    "image": "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=300&fit=crop",
+    "parentCategory": null,
+    "isActive": true
+  },
+  {
+    "name": "Fiction",
+    "description": "Novels, short stories, and fictional literature",
+    "image": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400&h=300&fit=crop",
+    "parentCategory": "Books",
+    "isActive": true
+  },
+  {
+    "name": "Non-Fiction",
+    "description": "Educational, self-help, and factual books",
+    "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop",
+    "parentCategory": "Books",
+    "isActive": true
+  },
+  {
+    "name": "Science & Technology",
+    "description": "Technical books, programming, and scientific literature",
+    "image": "https://images.unsplash.com/photo-1532012197267-da84d127e765?w=400&h=300&fit=crop",
+    "parentCategory": "Books",
+    "isActive": true
+  },
+  {
+    "name": "Clothing & Fashion",
+    "description": "Apparel, shoes, and fashion accessories",
+    "image": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=300&fit=crop",
+    "parentCategory": null,
+    "isActive": true
+  },
+  {
+    "name": "Men's Clothing",
+    "description": "Men's apparel and accessories",
+    "image": "https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?w=400&h=300&fit=crop",
+    "parentCategory": "Clothing & Fashion",
+    "isActive": true
+  },
+  {
+    "name": "Women's Clothing",
+    "description": "Women's apparel and accessories",
+    "image": "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=400&h=300&fit=crop",
+    "parentCategory": "Clothing & Fashion",
+    "isActive": true
+  },
+  {
+    "name": "Shoes & Footwear",
+    "description": "Shoes, sneakers, and footwear for all occasions",
+    "image": "https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=400&h=300&fit=crop",
+    "parentCategory": "Clothing & Fashion",
+    "isActive": true
+  },
+  {
+    "name": "Home & Garden",
+    "description": "Home decor, furniture, and garden supplies",
+    "image": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=300&fit=crop",
+    "parentCategory": null,
+    "isActive": true
+  },
+  {
+    "name": "Furniture",
+    "description": "Indoor and outdoor furniture",
+    "image": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=300&fit=crop",
+    "parentCategory": "Home & Garden",
+    "isActive": true
+  },
+  {
+    "name": "Kitchen & Dining",
+    "description": "Kitchen appliances, cookware, and dining accessories",
+    "image": "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=300&fit=crop",
+    "parentCategory": "Home & Garden",
+    "isActive": true
+  },
+  {
+    "name": "Garden & Outdoor",
+    "description": "Gardening tools, plants, and outdoor equipment",
+    "image": "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=300&fit=crop",
+    "parentCategory": "Home & Garden",
+    "isActive": true
+  },
+  {
+    "name": "Sports & Outdoors",
+    "description": "Sports equipment, fitness gear, and outdoor activities",
+    "image": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop",
+    "parentCategory": null,
+    "isActive": true
+  },
+  {
+    "name": "Fitness Equipment",
+    "description": "Home gym equipment and fitness accessories",
+    "image": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&h=300&fit=crop",
+    "parentCategory": "Sports & Outdoors",
+    "isActive": true
+  },
+  {
+    "name": "Outdoor Recreation",
+    "description": "Camping, hiking, and outdoor adventure gear",
+    "image": "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=400&h=300&fit=crop",
+    "parentCategory": "Sports & Outdoors",
+    "isActive": true
+  }
+]

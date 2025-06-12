@@ -1,0 +1,100 @@
+<div class="image-gallery" (keydown)="onKeyDown($event)" tabindex="0">
+  <!-- Main Image Container -->
+  <div class="main-image-container">
+    <!-- Loading Spinner -->
+    <div class="image-loading" *ngIf="isImageLoading">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading image...</span>
+      </div>
+    </div>
+
+    <!-- Error State -->
+    <div class="image-error" *ngIf="imageError && !isImageLoading">
+      <i class="bi bi-image text-muted"></i>
+      <p class="text-muted mb-0">Image could not be loaded</p>
+    </div>
+
+    <!-- Main Image -->
+    <div 
+      class="main-image-wrapper"
+      [class.zoomed]="isZoomed"
+      [class.zoomable]="enableZoom && !imageError"
+      *ngIf="currentImage && !imageError">
+      
+      <img 
+        #mainImage
+        [src]="currentImage"
+        [alt]="getMainImageAlt()"
+        class="main-image"
+        [style.transform-origin]="zoomX + '% ' + zoomY + '%'"
+        (load)="onImageLoad()"
+        (error)="onImageError()"
+        (click)="toggleZoom()"
+        (mousemove)="onMouseMove($event)"
+        (mouseleave)="onMouseLeave()">
+
+      <!-- Navigation Arrows -->
+      <div class="navigation-arrows" *ngIf="showNavigation && hasMultipleImages">
+        <button 
+          class="nav-btn prev-btn"
+          (click)="previousImage()"
+          [disabled]="isImageLoading"
+          aria-label="Previous image">
+          <i class="bi bi-chevron-left"></i>
+        </button>
+        
+        <button 
+          class="nav-btn next-btn"
+          (click)="nextImage()"
+          [disabled]="isImageLoading"
+          aria-label="Next image">
+          <i class="bi bi-chevron-right"></i>
+        </button>
+      </div>
+
+      <!-- Zoom Icon -->
+      <div class="zoom-icon" *ngIf="enableZoom && !imageError && !isImageLoading">
+        <i class="bi" [class.bi-zoom-in]="!isZoomed" [class.bi-zoom-out]="isZoomed"></i>
+      </div>
+
+      <!-- Image Counter -->
+      <div class="image-counter" *ngIf="hasMultipleImages">
+        {{ currentIndex + 1 }} / {{ images.length }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Thumbnails -->
+  <div class="thumbnails-container" *ngIf="showThumbnails && hasMultipleImages">
+    <div class="thumbnails-wrapper">
+      <button
+        *ngFor="let image of images; let i = index"
+        class="thumbnail-btn"
+        [class.active]="i === currentIndex"
+        (click)="selectImage(i)"
+        [attr.aria-label]="getThumbnailAlt(i)">
+        
+        <img 
+          [src]="image"
+          [alt]="getThumbnailAlt(i)"
+          class="thumbnail-image"
+          loading="lazy">
+        
+        <div class="thumbnail-overlay" *ngIf="i === currentIndex">
+          <i class="bi bi-check-circle-fill"></i>
+        </div>
+      </button>
+    </div>
+  </div>
+
+  <!-- Dots Indicator (for mobile) -->
+  <div class="dots-indicator d-md-none" *ngIf="hasMultipleImages">
+    <button
+      *ngFor="let image of images; let i = index"
+      class="dot"
+      [class.active]="i === currentIndex"
+      (click)="selectImage(i)"
+      [attr.aria-label]="'Go to image ' + (i + 1)">
+    </button>
+  </div>
+</div>

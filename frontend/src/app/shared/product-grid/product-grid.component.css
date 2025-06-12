@@ -1,0 +1,226 @@
+.product-grid-container {
+  width: 100%;
+}
+
+/* Loading Skeletons */
+.loading-container {
+  width: 100%;
+}
+
+.product-skeleton {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  background: white;
+  height: 400px;
+  animation: pulse 1.5s ease-in-out infinite alternate;
+}
+
+.skeleton-image {
+  height: 250px;
+  background: #f0f0f0;
+}
+
+.skeleton-content {
+  padding: 16px;
+}
+
+.skeleton-title,
+.skeleton-price,
+.skeleton-rating,
+.skeleton-button {
+  background: #f0f0f0;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+
+.skeleton-title {
+  height: 20px;
+  width: 80%;
+}
+
+.skeleton-price {
+  height: 18px;
+  width: 60%;
+}
+
+.skeleton-rating {
+  height: 16px;
+  width: 70%;
+}
+
+.skeleton-button {
+  height: 36px;
+  width: 100%;
+  margin-bottom: 0;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.7;
+  }
+}
+
+/* Products Container */
+.products-container {
+  width: 100%;
+}
+
+/* List Layout */
+.list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.list-item {
+  width: 100%;
+}
+
+/* Load More */
+.load-more-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
+
+.btn-load-more {
+  padding: 12px 32px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.btn-load-more:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+}
+
+.btn-load-more:disabled {
+  cursor: not-allowed;
+}
+
+/* Loading More */
+.loading-more {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #6c757d;
+}
+
+.empty-icon {
+  margin-bottom: 24px;
+}
+
+.empty-icon i {
+  font-size: 64px;
+  color: #dee2e6;
+}
+
+.empty-state h4 {
+  margin-bottom: 12px;
+  color: #495057;
+  font-weight: 600;
+}
+
+.empty-state p {
+  font-size: 16px;
+  margin-bottom: 0;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1200px) {
+  .row .col-lg-3 {
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+}
+
+@media (max-width: 992px) {
+  .row .col-md-4 {
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+  }
+}
+
+@media (max-width: 768px) {
+  .row .col-sm-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+  
+  .empty-state {
+    padding: 40px 20px;
+  }
+  
+  .empty-icon i {
+    font-size: 48px;
+  }
+}
+
+@media (max-width: 576px) {
+  .row > [class*="col-"] {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  
+  .btn-load-more {
+    padding: 10px 24px;
+    font-size: 14px;
+  }
+  
+  .empty-state {
+    padding: 30px 15px;
+  }
+}
+
+/* Track by function for performance */
+.products-container {
+  contain: layout;
+}
+
+/* Smooth transitions */
+.list-item,
+.row > [class*="col-"] {
+  transition: all 0.3s ease;
+}
+
+/* Accessibility */
+.btn-load-more:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+/* Loading animations */
+.spinner-border-sm {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Better spacing for grid items */
+.row {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+.row > [class*="col-"] {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+/* Performance optimizations */
+.product-skeleton,
+.empty-state,
+.loading-more {
+  will-change: transform;
+}

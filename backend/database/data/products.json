@@ -1,0 +1,327 @@
+[
+  {
+    "name": "MacBook Pro 16-inch M3",
+    "description": "Apple MacBook Pro with M3 chip, 16-inch Liquid Retina XDR display, 16GB RAM, 512GB SSD. Perfect for professional work, creative projects, and demanding applications.",
+    "price": 2499.99,
+    "category": "Laptops & Computers",
+    "images": [
+      "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=400&h=300&fit=crop"
+    ],
+    "stock": 25,
+    "sku": "MBP16M3512",
+    "isActive": true
+  },
+  {
+    "name": "Dell XPS 13 Plus",
+    "description": "Ultra-portable laptop with 13th Gen Intel Core i7, 13.4-inch InfinityEdge display, 16GB LPDDR5, 1TB SSD. Sleek design meets powerful performance.",
+    "price": 1399.99,
+    "category": "Laptops & Computers",
+    "images": [
+      "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=400&h=300&fit=crop"
+    ],
+    "stock": 18,
+    "sku": "DELLXPS13P",
+    "isActive": true
+  },
+  {
+    "name": "Gaming Desktop PC - RTX 4070",
+    "description": "High-performance gaming desktop with NVIDIA RTX 4070, AMD Ryzen 7 7700X, 32GB DDR5 RAM, 1TB NVMe SSD. Ready for 4K gaming and content creation.",
+    "price": 1899.99,
+    "category": "Laptops & Computers",
+    "images": [
+      "https://images.unsplash.com/photo-1587831990711-23ca6441447b?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1593640408182-31c70c8268f5?w=400&h=300&fit=crop"
+    ],
+    "stock": 12,
+    "sku": "GAMINGPC4070",
+    "isActive": true
+  },
+  {
+    "name": "iPhone 15 Pro Max 256GB",
+    "description": "Apple iPhone 15 Pro Max with A17 Pro chip, 6.7-inch Super Retina XDR display, triple-camera system with 5x zoom, and titanium design.",
+    "price": 1199.99,
+    "category": "Mobile Phones",
+    "images": [
+      "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400&h=300&fit=crop"
+    ],
+    "stock": 45,
+    "sku": "IPH15PM256",
+    "isActive": true
+  },
+  {
+    "name": "Samsung Galaxy S24 Ultra",
+    "description": "Samsung Galaxy S24 Ultra with S Pen, 6.8-inch Dynamic AMOLED 2X display, 200MP camera, 12GB RAM, 512GB storage. The ultimate Android flagship.",
+    "price": 1299.99,
+    "category": "Mobile Phones",
+    "images": [
+      "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1580910051074-3eb694886505?w=400&h=300&fit=crop"
+    ],
+    "stock": 32,
+    "sku": "GALS24U512",
+    "isActive": true
+  },
+  {
+    "name": "Google Pixel 8 Pro",
+    "description": "Google Pixel 8 Pro with Google Tensor G3, 6.7-inch LTPO OLED display, advanced AI photography features, and 7 years of OS updates.",
+    "price": 999.99,
+    "category": "Mobile Phones",
+    "images": [
+      "https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1556656793-08538906a9f8?w=400&h=300&fit=crop"
+    ],
+    "stock": 28,
+    "sku": "PIX8PRO128",
+    "isActive": true
+  },
+  {
+    "name": "Sony WH-1000XM5 Wireless Headphones",
+    "description": "Industry-leading noise canceling wireless headphones with 30-hour battery life, multipoint connection, and premium sound quality.",
+    "price": 399.99,
+    "category": "Audio & Headphones",
+    "images": [
+      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=400&h=300&fit=crop"
+    ],
+    "stock": 67,
+    "sku": "SONYWH1000XM5",
+    "isActive": true
+  },
+  {
+    "name": "Apple AirPods Pro (2nd Gen)",
+    "description": "Apple AirPods Pro with Active Noise Cancellation, Adaptive Transparency, and up to 6 hours of listening time. Includes MagSafe charging case.",
+    "price": 249.99,
+    "category": "Audio & Headphones",
+    "images": [
+      "https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=400&h=300&fit=crop"
+    ],
+    "stock": 89,
+    "sku": "AIRPODSPRO2",
+    "isActive": true
+  },
+  {
+    "name": "JBL Charge 5 Portable Speaker",
+    "description": "Waterproof portable Bluetooth speaker with 20 hours of playtime, powerbank feature, and JBL Pro Sound with optimized long excursion driver.",
+    "price": 179.99,
+    "category": "Audio & Headphones",
+    "images": [
+      "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1545454675-3531b543be5d?w=400&h=300&fit=crop"
+    ],
+    "stock": 44,
+    "sku": "JBLCHARGE5",
+    "isActive": true
+  },
+  {
+    "name": "Canon EOS R6 Mark II",
+    "description": "Full-frame mirrorless camera with 24.2MP sensor, 8K video recording, in-body image stabilization, and advanced autofocus system.",
+    "price": 2499.99,
+    "category": "Cameras & Photography",
+    "images": [
+      "https://images.unsplash.com/photo-1606983340126-99ab4feaa64a?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=400&h=300&fit=crop"
+    ],
+    "stock": 15,
+    "sku": "CANR6M2",
+    "isActive": true
+  },
+  {
+    "name": "The Seven Husbands of Evelyn Hugo",
+    "description": "A captivating novel by Taylor Jenkins Reid about the reclusive Hollywood icon who finally decides to tell her story to an unknown journalist.",
+    "price": 16.99,
+    "category": "Fiction",
+    "images": [
+      "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=300&fit=crop"
+    ],
+    "stock": 156,
+    "sku": "EVELYN7HUS",
+    "isActive": true
+  },
+  {
+    "name": "Atomic Habits",
+    "description": "James Clear's transformative book on building good habits and breaking bad ones. Learn the proven framework for improving every area of your life.",
+    "price": 18.99,
+    "category": "Non-Fiction",
+    "images": [
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=400&h=300&fit=crop"
+    ],
+    "stock": 203,
+    "sku": "ATOMICHAB",
+    "isActive": true
+  },
+  {
+    "name": "Clean Code: A Handbook of Agile Software Craftsmanship",
+    "description": "Robert C. Martin's essential guide to writing clean, maintainable code. Learn the principles and practices of professional software development.",
+    "price": 42.99,
+    "category": "Science & Technology",
+    "images": [
+      "https://images.unsplash.com/photo-1532012197267-da84d127e765?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop"
+    ],
+    "stock": 87,
+    "sku": "CLEANCODE",
+    "isActive": true
+  },
+  {
+    "name": "The Pragmatic Programmer",
+    "description": "David Thomas and Andrew Hunt's classic guide to becoming a better programmer. 20th Anniversary Edition with updated content and new insights.",
+    "price": 49.99,
+    "category": "Science & Technology",
+    "images": [
+      "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1544376664-80b17f09d399?w=400&h=300&fit=crop"
+    ],
+    "stock": 72,
+    "sku": "PRAGPROG",
+    "isActive": true
+  },
+  {
+    "name": "Levi's 501 Original Jeans",
+    "description": "The original straight fit jeans. Made with premium denim and the classic 5-pocket styling that started it all. Available in multiple washes.",
+    "price": 89.99,
+    "category": "Men's Clothing",
+    "images": [
+      "https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1542272604-787c3835535d?w=400&h=300&fit=crop"
+    ],
+    "stock": 124,
+    "sku": "LEVI501OR",
+    "isActive": true
+  },
+  {
+    "name": "Nike Air Force 1 '07",
+    "description": "The iconic basketball shoe that changed the game. Classic white leather construction with perforations for breathability and Nike Air cushioning.",
+    "price": 110.00,
+    "category": "Shoes & Footwear",
+    "images": [
+      "https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=300&fit=crop"
+    ],
+    "stock": 89,
+    "sku": "NIKEAF1WHT",
+    "isActive": true
+  },
+  {
+    "name": "Zara Women's Cropped Blazer",
+    "description": "Elegant cropped blazer with lapel collar, long sleeves, and front button fastening. Perfect for professional and casual styling.",
+    "price": 79.99,
+    "category": "Women's Clothing",
+    "images": [
+      "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=300&fit=crop"
+    ],
+    "stock": 67,
+    "sku": "ZARACROPBLZ",
+    "isActive": true
+  },
+  {
+    "name": "Adidas Ultraboost 22",
+    "description": "Revolutionary running shoes with BOOST midsole technology, Primeknit upper, and Continental rubber outsole for superior grip and comfort.",
+    "price": 190.00,
+    "category": "Shoes & Footwear",
+    "images": [
+      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?w=400&h=300&fit=crop"
+    ],
+    "stock": 76,
+    "sku": "ADIUB22",
+    "isActive": true
+  },
+  {
+    "name": "IKEA MALM Bed Frame",
+    "description": "Modern bed frame with clean lines and a timeless design. Available in white stained oak veneer. Includes adjustable bed sides and slatted bed base.",
+    "price": 179.99,
+    "category": "Furniture",
+    "images": [
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=400&h=300&fit=crop"
+    ],
+    "stock": 32,
+    "sku": "IKEAMALM",
+    "isActive": true
+  },
+  {
+    "name": "Instant Pot Duo 7-in-1 Electric Pressure Cooker",
+    "description": "7-in-1 multi-use programmable pressure cooker: pressure cooker, slow cooker, rice cooker, steamer, sauté, yogurt maker, and warmer.",
+    "price": 99.99,
+    "category": "Kitchen & Dining",
+    "images": [
+      "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1584949091598-c31daaaa4aa9?w=400&h=300&fit=crop"
+    ],
+    "stock": 98,
+    "sku": "INSTPOTDUO7",
+    "isActive": true
+  },
+  {
+    "name": "Weber Genesis II E-315 Gas Grill",
+    "description": "3-burner gas grill with GS4 grilling system, porcelain-enameled cast iron cooking grates, and built-in lid thermometer. Perfect for outdoor cooking.",
+    "price": 799.99,
+    "category": "Garden & Outdoor",
+    "images": [
+      "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop"
+    ],
+    "stock": 23,
+    "sku": "WEBGEN2E315",
+    "isActive": true
+  },
+  {
+    "name": "Peloton Bike+",
+    "description": "Premium indoor exercise bike with 23.8-inch rotating HD touchscreen, auto-follow resistance, and access to thousands of live and on-demand classes.",
+    "price": 2495.00,
+    "category": "Fitness Equipment",
+    "images": [
+      "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop"
+    ],
+    "stock": 8,
+    "sku": "PELOTONBP",
+    "isActive": true
+  },
+  {
+    "name": "REI Co-op Quarter Dome SL 2 Tent",
+    "description": "Ultralight backpacking tent for 2 people. Features color-coded clips, pre-bent poles, and a footprint included. Perfect for backpacking adventures.",
+    "price": 399.99,
+    "category": "Outdoor Recreation",
+    "images": [
+      "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=400&h=300&fit=crop"
+    ],
+    "stock": 34,
+    "sku": "REIQD2TENT",
+    "isActive": true
+  },
+  {
+    "name": "Hydro Flask Standard Mouth Water Bottle",
+    "description": "32 oz insulated stainless steel water bottle that keeps drinks cold for 24 hours and hot for 12 hours. BPA-free and dishwasher safe.",
+    "price": 44.95,
+    "category": "Outdoor Recreation",
+    "images": [
+      "https://images.unsplash.com/photo-1523362628745-0c100150b504?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=400&h=300&fit=crop"
+    ],
+    "stock": 167,
+    "sku": "HFLASK32",
+    "isActive": true
+  },
+  {
+    "name": "Herman Miller Aeron Chair",
+    "description": "Iconic ergonomic office chair with 8Z Pellicle suspension, PostureFit SL back support, and fully adjustable design. Size B (Medium).",
+    "price": 1395.00,
+    "category": "Furniture",
+    "images": [
+      "https://images.unsplash.com/photo-1541558869434-2840d308329a?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=400&h=300&fit=crop"
+    ],
+    "stock": 12,
+    "sku": "HMAERON",
+    "isActive": true
+  }
+]

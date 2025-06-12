@@ -1,0 +1,188 @@
+<div class="home-page">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <div class="hero-content">
+            <h1 class="hero-title">
+              Discover Amazing Products
+              <span class="text-primary">At Unbeatable Prices</span>
+            </h1>
+            <p class="hero-description">
+              Shop from thousands of products across multiple categories. 
+              Find everything you need with fast shipping and excellent customer service.
+            </p>
+            <div class="hero-actions">
+              <a routerLink="/products" class="btn btn-primary btn-lg hero-btn">
+                <i class="fas fa-shopping-bag"></i>
+                Shop Now
+              </a>
+              <a routerLink="/products" class="btn btn-outline-primary btn-lg hero-btn">
+                <i class="fas fa-search"></i>
+                Browse Products
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="hero-image">
+            <img src="/assets/images/hero-shopping.jpg" alt="Shopping Experience" class="img-fluid" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories Section -->
+  <section class="categories-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Shop by Category</h2>
+        <p class="section-subtitle">Explore our wide range of product categories</p>
+        <a routerLink="/products" class="btn btn-outline-primary">View All Categories</a>
+      </div>
+
+      <div *ngIf="isCategoriesLoading" class="categories-loading">
+        <div class="row">
+          <div class="col-md-4 col-lg-2 mb-4" *ngFor="let item of [1,2,3,4,5,6]">
+            <div class="category-skeleton">
+              <div class="skeleton-image"></div>
+              <div class="skeleton-title"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="!isCategoriesLoading && categories.length > 0" class="categories-grid">
+        <div class="row">
+          <div 
+            class="col-md-4 col-lg-2 mb-4" 
+            *ngFor="let category of categories"
+          >
+            <a [routerLink]="['/category', category._id]" class="category-card">
+              <div class="category-image">
+                <img 
+                  *ngIf="category.image" 
+                  [src]="category.image" 
+                  [alt]="category.name"
+                  class="img-fluid"
+                />
+                <div *ngIf="!category.image" class="no-image">
+                  <i class="fas fa-folder"></i>
+                </div>
+              </div>
+              <div class="category-info">
+                <h5 class="category-name">{{ category.name }}</h5>
+                <span class="category-count" *ngIf="category.productCount">
+                  {{ category.productCount }} {{ category.productCount === 1 ? 'product' : 'products' }}
+                </span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Products Section -->
+  <section class="featured-products-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Featured Products</h2>
+        <p class="section-subtitle">Hand-picked products just for you</p>
+        <a routerLink="/products" class="btn btn-outline-primary">View All Products</a>
+      </div>
+
+      <app-product-grid
+        [products]="featuredProducts"
+        [isLoading]="isLoading"
+        layout="grid"
+        [showLoadMore]="false"
+        emptyMessage="No featured products available at the moment."
+        (addToCart)="addToCart($event)"
+        (addToWishlist)="onAddToWishlist($event)"
+      ></app-product-grid>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 col-sm-6 mb-4">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-shipping-fast"></i>
+            </div>
+            <h4 class="feature-title">Fast Shipping</h4>
+            <p class="feature-description">
+              Get your orders delivered quickly with our express shipping options.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 mb-4">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+            <h4 class="feature-title">Secure Shopping</h4>
+            <p class="feature-description">
+              Shop with confidence using our secure payment and data protection.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 mb-4">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-undo"></i>
+            </div>
+            <h4 class="feature-title">Easy Returns</h4>
+            <p class="feature-description">
+              Not satisfied? Return your purchase within 30 days for a full refund.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 mb-4">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-headset"></i>
+            </div>
+            <h4 class="feature-title">24/7 Support</h4>
+            <p class="feature-description">
+              Our customer service team is here to help you anytime, anywhere.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter Section -->
+  <section class="newsletter-section">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-6 text-center">
+          <h3 class="newsletter-title">Stay Updated</h3>
+          <p class="newsletter-description">
+            Subscribe to our newsletter and get notified about new products, sales, and special offers.
+          </p>
+          <form class="newsletter-form">
+            <div class="input-group">
+              <input 
+                type="email" 
+                class="form-control" 
+                placeholder="Enter your email address"
+                aria-label="Email address"
+              />
+              <button class="btn btn-primary" type="submit">
+                <i class="fas fa-paper-plane"></i>
+                Subscribe
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

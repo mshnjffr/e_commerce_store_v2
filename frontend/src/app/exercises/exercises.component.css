@@ -163,6 +163,7 @@
 .exercise-item .alert:last-child {
   margin-bottom: 0.5rem;
 }
+<<<<<<< Updated upstream
 
 /* Fix file list styling */
 .alert-warning small {
@@ -172,3 +173,5 @@
 .alert-warning small br {
   margin-bottom: 0.25rem;
 }
+=======
+>>>>>>> Stashed changes

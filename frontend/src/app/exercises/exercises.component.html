@@ -415,14 +415,15 @@ frontend/src/app/shared/add-to-cart-button/add-to-cart-button.component.html</co
                   <label for="gen7" class="fw-bold mb-2">2.7 Integrate Wishlist Buttons in Product Components</label>
                   <div class="alert alert-light">
                     <strong>📁 Files to include as context:</strong><br>
-                    <code>frontend/src/app/shared/product-grid/product-grid.component.html
+                    <code>frontend/src/app/shared/product-card/product-card.component.html
+frontend/src/app/shared/product-card/product-card.component.ts
 frontend/src/app/product-detail/product-detail.component.html
 frontend/src/app/shared/add-to-wishlist-button/add-to-wishlist-button.component.ts
 frontend/src/app/shared/add-to-wishlist-button/add-to-wishlist-button.component.html
 frontend/src/app/shared/add-to-cart-button/add-to-cart-button.component.html</code><br><br>
                     
                     <strong>🤖 Prompt to use with Cody:</strong><br>
-                    "I need to add the AddToWishlistButtonComponent to existing product display templates. Please show me the updated HTML for the product-grid.component.html and product-detail.component.html files to include the wishlist heart button next to the existing 'Add to Cart' button. Use proper Bootstrap classes for positioning and maintain the existing layout structure."
+                    "I need to integrate the AddToWishlistButtonComponent into the ProductCardComponent and ProductDetailComponent. In product-card.component.html, replace the basic wishlist button (lines 50-57) with the AddToWishlistButtonComponent. In product-detail.component.html, add the AddToWishlistButtonComponent next to the Add to Cart button. Update the corresponding TypeScript files to import the component and handle events properly. Show me the updated HTML and TypeScript files."
                   </div>
                   <small class="text-muted">Add wishlist functionality to existing product display components.</small>
                 </div>

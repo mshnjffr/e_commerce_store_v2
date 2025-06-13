@@ -362,12 +362,12 @@
                   <label for="gen2" class="fw-bold mb-2">2.2 Generate Wishlist Models</label>
                   <div class="alert alert-light">
                     <strong>📁 Files to include as context:</strong><br>
-                    <code>frontend/src/app/models/cart.model.ts</code><br>
-                    <code>frontend/src/app/models/product.model.ts</code><br>
-                    <code>frontend/src/app/models/user.model.ts</code><br>
-                    <code>backend/src/models/Cart.ts</code><br>
-                    <code>backend/src/models/Product.ts</code><br>
-                    <code>backend/src/models/User.ts</code><br><br>
+                    <code>frontend/src/app/models/cart.model.ts
+frontend/src/app/models/product.model.ts
+frontend/src/app/models/user.model.ts
+backend/src/models/Cart.ts
+backend/src/models/Product.ts
+backend/src/models/User.ts</code><br><br>
                     
                     <strong>🤖 Prompt to use with Cody:</strong><br>
                     "Based on the cart models, generate both frontend and backend wishlist models. The wishlist should store products that users want to save for later. Create: 1) frontend/src/app/models/wishlist.model.ts following the cart.model.ts pattern, and 2) backend/src/models/Wishlist.ts following the Cart.ts pattern. A wishlist should belong to a user and contain multiple products. Important: If you add pre-save hooks for deduplication, use DocumentArray.splice() method instead of direct assignment to avoid TypeScript errors with Mongoose DocumentArrays."
@@ -385,10 +385,10 @@
                   <label for="gen3" class="fw-bold mb-2">2.3 Generate Wishlist Service</label>
                   <div class="alert alert-light">
                     <strong>📁 Files to include as context:</strong><br>
-                    <code>frontend/src/app/services/cart.service.ts</code><br>
-                    <code>frontend/src/app/services/auth.service.ts</code><br>
-                    <code>frontend/src/app/models/wishlist.model.ts</code> (from previous step)<br>
-                    <code>frontend/src/app/models/product.model.ts</code><br><br>
+                    <code>frontend/src/app/services/cart.service.ts
+frontend/src/app/services/auth.service.ts
+frontend/src/app/models/wishlist.model.ts (from previous step)
+frontend/src/app/models/product.model.ts</code><br><br>
                     
                     <strong>🤖 Prompt to use with Cody:</strong><br>
                     "Generate a WishlistService at frontend/src/app/services/wishlist.service.ts. Follow the CartService pattern but adapt it for wishlist functionality. Include methods: addToWishlist(product), removeFromWishlist(productId), getWishlist(), isInWishlist(productId), clearWishlist(). Handle both guest users (localStorage) and authenticated users (API calls). Use BehaviorSubject for reactive state management."
@@ -406,11 +406,11 @@
                   <label for="gen4" class="fw-bold mb-2">2.4 Generate Backend Wishlist API</label>
                   <div class="alert alert-light">
                     <strong>📁 Files to include as context:</strong><br>
-                    <code>backend/src/controllers/CartController.ts</code><br>
-                    <code>backend/src/routes/cartRoutes.ts</code><br>
-                    <code>backend/src/models/Wishlist.ts</code> (from step 2.2)<br>
-                    <code>backend/src/middleware/auth.ts</code><br>
-                    <code>backend/src/server.ts</code><br><br>
+                    <code>backend/src/controllers/CartController.ts
+backend/src/routes/cartRoutes.ts
+backend/src/models/Wishlist.ts (from step 2.2)
+backend/src/middleware/auth.ts
+backend/src/server.ts</code><br><br>
                     
                     <strong>🤖 Prompt to use with Cody:</strong><br>
                     "Generate complete backend API for wishlist functionality. Create: 1) backend/src/controllers/WishlistController.ts with methods: getWishlist, addToWishlist, removeFromWishlist, clearWishlist. 2) backend/src/routes/wishlistRoutes.ts with proper authentication middleware. Follow the CartController and cartRoutes patterns exactly. Include proper error handling, validation, and populate product details when returning wishlist data."
@@ -428,10 +428,10 @@
                   <label for="gen5" class="fw-bold mb-2">2.5 Generate Add to Wishlist Button Component</label>
                   <div class="alert alert-light">
                     <strong>📁 Files to include as context:</strong><br>
-                    <code>frontend/src/app/shared/add-to-cart-button/add-to-cart-button.component.ts</code><br>
-                    <code>frontend/src/app/shared/add-to-cart-button/add-to-cart-button.component.html</code><br>
-                    <code>frontend/src/app/services/wishlist.service.ts</code> (from step 2.3)<br>
-                    <code>frontend/src/app/models/product.model.ts</code><br><br>
+                    <code>frontend/src/app/shared/add-to-cart-button/add-to-cart-button.component.ts
+frontend/src/app/shared/add-to-cart-button/add-to-cart-button.component.html
+frontend/src/app/services/wishlist.service.ts (from step 2.3)
+frontend/src/app/models/product.model.ts</code><br><br>
                     
                     <strong>🤖 Prompt to use with Cody:</strong><br>
                     "Generate an AddToWishlistButtonComponent at frontend/src/app/shared/add-to-wishlist-button/ following the AddToCartButtonComponent pattern. The component should: 1) Accept a product as input, 2) Show heart icon (outline when not in wishlist, filled when in wishlist), 3) Toggle add/remove from wishlist on click, 4) Show loading state during API calls, 5) Use Bootstrap classes for styling. Include both .ts and .html files."
@@ -449,10 +449,10 @@
                   <label for="gen6" class="fw-bold mb-2">2.6 Generate Wishlist Page Component</label>
                   <div class="alert alert-light">
                     <strong>📁 Files to include as context:</strong><br>
-                    <code>frontend/src/app/cart/cart.component.ts</code><br>
-                    <code>frontend/src/app/cart/cart.component.html</code><br>
-                    <code>frontend/src/app/services/wishlist.service.ts</code> (from step 2.3)<br>
-                    <code>frontend/src/app/shared/add-to-cart-button/add-to-cart-button.component.html</code><br><br>
+                    <code>frontend/src/app/cart/cart.component.ts
+frontend/src/app/cart/cart.component.html
+frontend/src/app/services/wishlist.service.ts (from step 2.3)
+frontend/src/app/shared/add-to-cart-button/add-to-cart-button.component.html</code><br><br>
                     
                     <strong>🤖 Prompt to use with Cody:</strong><br>
                     "Generate a WishlistComponent at frontend/src/app/wishlist/ following the CartComponent pattern. The page should: 1) Display all wishlist products in a grid/list, 2) Show product image, name, price, 3) Include 'Add to Cart' and 'Remove from Wishlist' buttons for each product, 4) Handle empty wishlist state, 5) Be responsive using Bootstrap classes. Create both .ts and .html files with proper component lifecycle and wishlist service integration."
@@ -470,10 +470,10 @@
                   <label for="gen7" class="fw-bold mb-2">2.7 Integrate Wishlist Buttons in Product Components</label>
                   <div class="alert alert-light">
                     <strong>📁 Files to include as context:</strong><br>
-                    <code>frontend/src/app/products/product-list/product-list.component.html</code><br>
-                    <code>frontend/src/app/products/product-detail/product-detail.component.html</code><br>
-                    <code>frontend/src/app/shared/add-to-wishlist-button/</code> (from step 2.5)<br>
-                    <code>frontend/src/app/shared/add-to-cart-button/add-to-cart-button.component.html</code><br><br>
+                    <code>frontend/src/app/products/product-list/product-list.component.html
+frontend/src/app/products/product-detail/product-detail.component.html
+frontend/src/app/shared/add-to-wishlist-button/ (from step 2.5)
+frontend/src/app/shared/add-to-cart-button/add-to-cart-button.component.html</code><br><br>
                     
                     <strong>🤖 Prompt to use with Cody:</strong><br>
                     "Help me integrate the AddToWishlistButtonComponent into the existing product display components. Update the product-list.component.html and product-detail.component.html to include the wishlist button alongside the existing 'Add to Cart' button. Position the wishlist heart icon appropriately and ensure proper styling with Bootstrap classes. The wishlist button should be visible on product cards and the product detail page."
@@ -491,10 +491,10 @@
                   <label for="gen8" class="fw-bold mb-2">2.8 Add Wishlist Navigation and Routing</label>
                   <div class="alert alert-light">
                     <strong>📁 Files to include as context:</strong><br>
-                    <code>frontend/src/app/app.routes.ts</code><br>
-                    <code>frontend/src/app/layout/header/header.component.html</code><br>
-                    <code>frontend/src/app/wishlist/wishlist.component.ts</code> (from step 2.6)<br>
-                    <code>backend/src/server.ts</code><br><br>
+                    <code>frontend/src/app/app.routes.ts
+frontend/src/app/layout/header/header.component.html
+frontend/src/app/wishlist/wishlist.component.ts (from step 2.6)
+backend/src/server.ts</code><br><br>
                     
                     <strong>🤖 Prompt to use with Cody:</strong><br>
                     "Help me complete the wishlist feature integration: 1) Add a '/wishlist' route to app.routes.ts for the WishlistComponent, 2) Add a wishlist icon/link to the header navigation (next to the cart icon) showing the wishlist count, 3) Register the wishlist routes in the backend server.ts file. Follow the existing patterns for cart navigation and routing. Include proper guards if needed for authenticated users."

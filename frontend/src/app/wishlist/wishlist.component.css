@@ -1,0 +1,106 @@
+.wishlist-item-card {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  border: 1px solid #dee2e6;
+}
+
+.wishlist-item-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-image {
+  transition: transform 0.3s ease-in-out;
+}
+
+.wishlist-item-card:hover .product-image {
+  transform: scale(1.02);
+}
+
+.card-title a {
+  transition: color 0.2s ease-in-out;
+}
+
+.card-title a:hover {
+  color: var(--bs-primary) !important;
+}
+
+/* Badge positioning */
+.position-absolute .badge {
+  font-size: 0.75rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .wishlist-item-card {
+    margin-bottom: 1rem;
+  }
+  
+  .product-image {
+    height: 180px !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .product-image {
+    height: 160px !important;
+  }
+  
+  .card-body {
+    padding: 1rem 0.75rem;
+  }
+}
+
+/* Loading animation */
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+}
+
+/* Empty state styling */
+.bi[style*="font-size: 4rem"] {
+  opacity: 0.6;
+}
+
+/* Action buttons spacing */
+.d-grid.gap-2 > * {
+  margin-bottom: 0;
+}
+
+/* Wishlist summary card */
+.bg-light {
+  background-color: #f8f9fa !important;
+}
+
+/* Smooth transitions for interactive elements */
+.btn {
+  transition: all 0.2s ease-in-out;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .wishlist-item-card {
+    border: 2px solid #000;
+  }
+  
+  .card-title a {
+    color: #000 !important;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .wishlist-item-card,
+  .product-image,
+  .card-title a,
+  .btn {
+    transition: none;
+  }
+  
+  .wishlist-item-card:hover {
+    transform: none;
+  }
+  
+  .wishlist-item-card:hover .product-image {
+    transform: none;
+  }
+}

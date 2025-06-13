@@ -1,0 +1,94 @@
+.add-to-wishlist-component {
+  display: inline-block;
+}
+
+.btn-icon-only {
+  padding: 0.375rem 0.5rem;
+  min-width: auto;
+}
+
+.btn-icon-only.btn-sm {
+  padding: 0.25rem 0.375rem;
+}
+
+.btn-icon-only.btn-lg {
+  padding: 0.5rem 0.75rem;
+}
+
+/* Heart icon animations */
+.bi-heart-fill {
+  color: #dc3545;
+  animation: heartBeat 0.3s ease-in-out;
+}
+
+.bi-heart {
+  transition: all 0.2s ease-in-out;
+}
+
+.btn:hover .bi-heart {
+  transform: scale(1.1);
+}
+
+.btn:hover .bi-heart-fill {
+  transform: scale(1.05);
+}
+
+@keyframes heartBeat {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Loading state */
+.btn.loading {
+  position: relative;
+  pointer-events: none;
+}
+
+/* Guest notice styling */
+.guest-notice {
+  font-size: 0.75rem;
+}
+
+.wishlist-status {
+  font-size: 0.75rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .btn-icon-only {
+    padding: 0.25rem 0.375rem;
+  }
+  
+  .guest-notice,
+  .wishlist-status {
+    font-size: 0.7rem;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .bi-heart-fill {
+    color: #000;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .bi-heart,
+  .bi-heart-fill {
+    transition: none;
+    animation: none;
+  }
+  
+  .btn:hover .bi-heart,
+  .btn:hover .bi-heart-fill {
+    transform: none;
+  }
+}

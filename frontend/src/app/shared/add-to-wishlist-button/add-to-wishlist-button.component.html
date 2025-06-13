@@ -1,0 +1,37 @@
+<div class="add-to-wishlist-component">
+  <!-- Add to Wishlist Button -->
+  <button 
+    type="button"
+    [class]="buttonClasses"
+    (click)="toggleWishlist()"
+    [disabled]="disabled || isLoading"
+    [attr.aria-label]="tooltipText"
+    [attr.title]="tooltipText">
+    
+    <!-- Loading Spinner -->
+    <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+    
+    <!-- Heart Icon -->
+    <i *ngIf="!isLoading" class="bi me-1" [class]="heartIcon" [attr.aria-hidden]="true"></i>
+    
+    <!-- Button Text (if enabled) -->
+    <span *ngIf="showText || (!iconOnly && !isLoading)">{{ displayText }}</span>
+    <span *ngIf="showText || (!iconOnly && isLoading)">{{ displayText }}</span>
+  </button>
+
+  <!-- Guest User Notice -->
+  <div *ngIf="!isAuthenticated && (showText || !iconOnly)" class="guest-notice mt-1">
+    <small class="text-muted">
+      <i class="bi bi-info-circle me-1"></i>
+      {{ guestNoticeText }}
+    </small>
+  </div>
+
+  <!-- Wishlist Status (for authenticated users with text) -->
+  <div *ngIf="isAuthenticated && isInWishlist && (showText || !iconOnly)" class="wishlist-status mt-1">
+    <small class="text-success">
+      <i class="bi bi-check-circle me-1"></i>
+      Saved to your wishlist
+    </small>
+  </div>
+</div>

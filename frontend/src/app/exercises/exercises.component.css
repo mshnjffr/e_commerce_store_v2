@@ -24,13 +24,16 @@
 
 .alert code {
   background-color: #f8f9fa;
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.375rem;
   border: 1px solid #dee2e6;
-  display: inline-block;
-  max-width: 100%;
+  display: block;
+  width: 100%;
   white-space: pre-wrap;
   word-break: break-word;
+  line-height: 1.5;
+  font-size: 0.875rem;
+  overflow-wrap: break-word;
 }
 
 .card-header small {
@@ -128,4 +131,44 @@
   .form-check-input {
     margin-bottom: 0.5rem;
   }
+}
+
+/* Make alert boxes more flexible */
+.alert {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.alert-light {
+  min-height: auto;
+  height: auto;
+}
+
+.alert-warning {
+  min-height: auto;
+  height: auto;
+}
+
+/* Ensure exercise items can expand */
+.exercise-item {
+  min-height: auto;
+  height: auto;
+}
+
+/* Better spacing for long prompts */
+.exercise-item .alert {
+  margin-bottom: 1rem;
+}
+
+.exercise-item .alert:last-child {
+  margin-bottom: 0.5rem;
+}
+
+/* Fix file list styling */
+.alert-warning small {
+  line-height: 1.6;
+}
+
+.alert-warning small br {
+  margin-bottom: 0.25rem;
 }

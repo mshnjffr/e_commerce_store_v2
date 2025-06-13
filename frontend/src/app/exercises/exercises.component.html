@@ -374,7 +374,7 @@
                   <div class="alert alert-light">
                     <strong>Prompt to use with Cody:</strong><br>
                     <code class="text-dark">
-                      "Based on the cart models, generate both frontend and backend wishlist models. The wishlist should store products that users want to save for later. Create: 1) frontend/src/app/models/wishlist.model.ts following the cart.model.ts pattern, and 2) backend/src/models/Wishlist.ts following the Cart.ts pattern. A wishlist should belong to a user and contain multiple products."
+                      "Based on the cart models, generate both frontend and backend wishlist models. The wishlist should store products that users want to save for later. Create: 1) frontend/src/app/models/wishlist.model.ts following the cart.model.ts pattern, and 2) backend/src/models/Wishlist.ts following the Cart.ts pattern. A wishlist should belong to a user and contain multiple products. Important: If you add pre-save hooks for deduplication, use DocumentArray.splice() method instead of direct assignment to avoid TypeScript errors with Mongoose DocumentArrays."
                     </code>
                   </div>
                   <small class="text-muted">Create TypeScript interfaces and Mongoose models for the wishlist feature.</small>

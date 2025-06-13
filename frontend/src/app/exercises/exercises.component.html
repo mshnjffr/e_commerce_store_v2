@@ -353,12 +353,12 @@ frontend/src/app/models/product.model.ts</code><br><br>
                     <strong>📁 Files to include as context:</strong><br>
                     <code>backend/src/controllers/CartController.ts
 backend/src/routes/cartRoutes.ts
+backend/src/routes/index.ts
 backend/src/models/Wishlist.ts (from step 2.2)
-backend/src/middleware/auth.ts
-backend/src/server.ts</code><br><br>
+backend/src/middleware/auth.ts</code><br><br>
                     
                     <strong>🤖 Prompt to use with Cody:</strong><br>
-                    "Generate complete backend API for wishlist functionality. Create: 1) backend/src/controllers/WishlistController.ts with methods: getWishlist, addToWishlist, removeFromWishlist, clearWishlist. 2) backend/src/routes/wishlistRoutes.ts with proper authentication middleware. Follow the CartController and cartRoutes patterns exactly. Include proper error handling, validation, and populate product details when returning wishlist data."
+                    "Generate complete backend API for wishlist functionality. Create: 1) backend/src/controllers/WishlistController.ts with methods: getWishlist, addToWishlist, removeFromWishlist, clearWishlist. 2) backend/src/routes/wishlistRoutes.ts with proper authentication middleware. 3) IMPORTANT: Update backend/src/routes/index.ts to import and register the wishlist routes at '${API_VERSION}/wishlist'. Follow the CartController and cartRoutes patterns exactly. Include proper error handling, validation, and populate product details when returning wishlist data."
                   </div>
                   <small class="text-muted">Create the backend API endpoints and controller for wishlist operations.</small>
                 </div>
